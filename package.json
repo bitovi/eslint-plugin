@@ -1,0 +1,25 @@
+{
+  "name": "@bitovi/eslint-plugin",
+  "version": "0.0.1",
+  "description": "Bitovi's Custom ESLint Rules for @bitovi/eslint-config",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bitovi/eslint-plugin.git"
+  },
+  "author": {
+    "name": "Bitovi",
+    "email": "contact@bitovi.com",
+    "web": "https://www.bitovi.com/"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bitovi/eslint-plugin/issues"
+  },
+  "homepage": "https://github.com/bitovi/eslint-plugin#readme",
+  "dependencies": {},
+  "devDependencies": {},
+  "peerDependencies": {
+    "eslint": ">= 8"
+  }
+}
