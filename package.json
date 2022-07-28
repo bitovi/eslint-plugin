@@ -17,6 +17,9 @@
     "url": "https://github.com/bitovi/eslint-plugin/issues"
   },
   "homepage": "https://github.com/bitovi/eslint-plugin#readme",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {},
   "devDependencies": {},
   "peerDependencies": {
