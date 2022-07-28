@@ -1,6 +1,6 @@
 {
   "name": "@bitovi/eslint-plugin",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Bitovi's Custom ESLint Rules for @bitovi/eslint-config",
   "main": "index.js",
   "repository": {
