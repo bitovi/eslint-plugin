@@ -3,8 +3,7 @@ import { AST_NODE_TYPES, ESLintUtils, TSESTree } from '@typescript-eslint/utils'
 const hasHostListenerClickKeyEvent = function (members: TSESTree.ClassElement[]) {
   const keyEvents = { keydown: 1, keypress: 1, keyup: 1 };
 
-  for (let i = 0; i < members.length; i++) {
-    const member = members[i];
+  for (const member of members) {
     if (
       !(member.type === AST_NODE_TYPES.MethodDefinition && member.kind === "method") &&
       member.type !== AST_NODE_TYPES.PropertyDefinition
