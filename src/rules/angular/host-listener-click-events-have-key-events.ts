@@ -17,11 +17,17 @@ const hasHostListenerClickKeyEvent = function (members: TSESTree.ClassElement[])
     }
     for (let j = 0; j < decorators?.length; j++) {
       const decorator = decorators[j];
-      const expression = (decorator.expression as TSESTree.CallExpression);
+      if(decorator.expression.type !== AST_NODE_TYPES.CallExpression) {
+        continue;
+      }
+      const expression = decorator.expression;
       const [event] = expression.arguments ?? [];
       if (
-        (expression.callee as TSESTree.Identifier)?.name === "HostListener" &&
-        keyEvents.hasOwnProperty((event as TSESTree.StringLiteral)?.value)
+        expression.callee.type === AST_NODE_TYPES.Identifier &&
+        expression.callee?.name === "HostListener" &&
+        event.type === AST_NODE_TYPES.Literal &&
+        typeof event.value === "string" &&
+        keyEvents.hasOwnProperty(event?.value)
       ) {
         return true;
       }
