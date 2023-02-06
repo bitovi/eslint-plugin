@@ -5,18 +5,18 @@ const hasHostListenerClickKeyEvent = function (members: TSESTree.ClassElement[])
 
   for (let i = 0; i < members.length; i++) {
     const member = members[i];
-    let decorators;
     if (
-      (member.type === AST_NODE_TYPES.MethodDefinition && member.kind === "method") ||
-      member.type === AST_NODE_TYPES.PropertyDefinition
+      !(member.type === AST_NODE_TYPES.MethodDefinition && member.kind === "method") &&
+      member.type !== AST_NODE_TYPES.PropertyDefinition
     ) {
-      decorators = member.decorators;
+      continue;
     }
+    const decorators = member.decorators;
+
     if (!decorators) {
       return false;
     }
-    for (let j = 0; j < decorators?.length; j++) {
-      const decorator = decorators[j];
+    for (const decorator of decorators ?? []) {
       if(decorator.expression.type !== AST_NODE_TYPES.CallExpression) {
         continue;
       }
