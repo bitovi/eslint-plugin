@@ -61,7 +61,10 @@ export const hostListenerClickEventsHaveKeyEventsRule = createRule({
         }
 
         const hostClass = node.parent?.parent;
-        if (!hasHostListenerClickKeyEvent((hostClass as TSESTree.ClassBody)?.body)) {
+        if(hostClass?.type !== AST_NODE_TYPES.ClassBody) {
+          return;
+        }
+        if (!hasHostListenerClickKeyEvent(hostClass?.body)) {
           context.report({
             node: node,
             messageId: "hostListenerClickEventsHaveKeyEvents",
