@@ -42,7 +42,7 @@ export const hostListenerMouseEventsHaveKeyEventsRule = createRule({
 
   create(context) {
     return {
-      Decorator: function (node: TSESTree.Decorator) {
+      [AST_NODE_TYPES.Decorator]: function (node: TSESTree.Decorator) {
         const expression = node.expression;
         if(expression.type !== AST_NODE_TYPES.CallExpression || expression.callee.type !== AST_NODE_TYPES.Identifier) {
           return;

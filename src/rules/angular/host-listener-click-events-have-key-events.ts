@@ -30,7 +30,7 @@ const hasHostListenerClickKeyEvent = function (members: TSESTree.ClassElement[])
   return false;
 };
 
-const createRule = ESLintUtils.RuleCreator(name => `https://temp-url/${name}`);
+const createRule = ESLintUtils.RuleCreator(name => `https://github.com/bitovi/eslint-plugin#readme`);
 
 export const hostListenerClickEventsHaveKeyEventsName = "angular/host-listener-click-events-have-key-events"
 export const hostListenerClickEventsHaveKeyEventsRule = createRule({
@@ -39,15 +39,22 @@ export const hostListenerClickEventsHaveKeyEventsRule = createRule({
       [AST_NODE_TYPES.Decorator]: function (node: TSESTree.Decorator) {
 
 
-        const expression = node.expression as TSESTree.CallExpression;
-        const isHostListener = (expression?.callee as TSESTree.Identifier)?.name === "HostListener";
+        const expression = node.expression;
+        if(expression.type !== AST_NODE_TYPES.CallExpression || expression.callee.type !== AST_NODE_TYPES.Identifier) {
+          return;
+        }
+        const isHostListener = expression.callee?.name === "HostListener";
 
         if (!isHostListener) {
           return;
         }
 
         const [event] = expression.arguments ?? [];
-        const isClickEvent = (event as TSESTree.StringLiteral).value === "click";
+        if(event.type !== AST_NODE_TYPES.Literal) {
+          return;
+        }
+
+        const isClickEvent = event.value === "click";
 
         if (!isClickEvent) {
           return;
