@@ -44,8 +44,8 @@ npm i @angular-eslint/utils@~12.4.1# Should match whatever version you are using
 This allows for visualizing the red quigly lines involved for eslint errors. We do this by taking advantage of `convertAnnotatedSourceToFailureCase` exported by `@angular-eslint/utils`
 
 // TODO: link to documentation on `convertAnnotatedSourceToFailureCase`
-// TODO: nvm 14
 // TODO: document how to properly link up to eslintrc
 // TODO: document how to properly create extendables (configs)
 // TODO: document ESLintUtils.RuleCreator(() => __filename) -> ESLintUtils.RuleCreator(name => `https://github.com/bitovi/eslint-plugin#readme`)
 // TODO: Monorepo for all the tooling related to using ESLint with Angular
+// TODO: Look into prettier/formatter
