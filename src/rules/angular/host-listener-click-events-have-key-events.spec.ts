@@ -22,6 +22,22 @@ tester.run(
     {
       code: `
       class MyComponent {
+        @HostListener('keyup') keyHandler() {}
+        @HostListener('click') clickHandler() {}
+      }
+    `
+    },
+    {
+      code: `
+      class MyComponent {
+        @HostListener('keypress') keyHandler() {}
+        @HostListener('click') clickHandler() {}
+      }
+    `
+    },
+    {
+      code: `
+      class MyComponent {
         @HostListener('keydown') keyHandler = () => {};
         @HostListener('click') clickHandler() {}
       }
