@@ -1,23 +1,51 @@
-# @bitovi/eslint-plugin
+# BitoviEslintPlugin
 
-Bitovi's Custom ESLint Rules
+[@bitovi/eslint-plugin](./tools/eslint-rules) - An ESLint-specific plugin that contains our custom rules which are specific to Angular projects. It can be combined with any other ESLint plugins in the normal way.
 
-## Rules
+## Walkthrough
 
-### Angular a11y
+You can learn about how to create your eslint rules by following [this walkthrough](https://www.youtube.com/watch?v=tEVNYmJ05Ew)
 
-#### angular/host-listener-click-events-have-key-events
+## Development
 
-Class equivalent to [@angular-eslint/template/click-events-have-key-events](https://github.com/angular-eslint/angular-eslint/blob/main/packages/eslint-plugin-template/docs/rules/click-events-have-key-events.md)
+When creating eslint rules, you should use [AST Explorer](https://astexplorer.net/) to create your rules.
 
-#### angular/host-listener-mouse-events-have-key-events
+It's an interactive tool that allows you to view AST as you write your rules. To start creating your rules, you should update your parser and transform configuration options:
 
-Class equivalent to [@angular-eslint/template/mouse-events-have-key-events](https://github.com/angular-eslint/angular-eslint/blob/main/packages/eslint-plugin-template/docs/rules/mouse-events-have-key-events.md)
+Parser: @typescript-eslint/parser (default is acorn)
+Transform: eslint: ESLint v8 (off)
 
-#### host-listener-click-events-have-key-events (DEPRECATED)
+You can view your current parser and transform configuration by looking at the upper right hand corner of the tool.
 
-Class equivalent to [@angular-eslint/template/click-events-have-key-events](https://github.com/angular-eslint/angular-eslint/blob/main/packages/eslint-plugin-template/docs/rules/click-events-have-key-events.md)
+It is recommended to turn on Prettier (a toggle found at the upper right corner of the bottom left panel once you've turned on your configuration options)
 
-#### host-listener-mouse-events-have-key-events (DEPRECATED)
+Be sure to restart eslint server whenever you are adding / removing eslint rules from `.eslintrc.json` or updating their fix conditions.
 
-Class equivalent to [@angular-eslint/template/mouse-events-have-key-events](https://github.com/angular-eslint/angular-eslint/blob/main/packages/eslint-plugin-template/docs/rules/mouse-events-have-key-events.md)
+## Commands
+
+```bash
+nx test eslint-rules
+```
+
+```bash
+nx build eslint-rules
+```
+
+```bash
+nx lint eslint-rules
+```
+
+## Angular Team's Utilities
+
+```bash
+npm i @angular-eslint/utils@~12.4.1# Should match whatever version you are using for @angular-eslint/eslint-plugin
+```
+
+This allows for visualizing the red quigly lines involved for eslint errors. We do this by taking advantage of `convertAnnotatedSourceToFailureCase` exported by `@angular-eslint/utils`
+
+// TODO: link to documentation on `convertAnnotatedSourceToFailureCase`
+// TODO: nvm 14
+// TODO: document how to properly link up to eslintrc
+// TODO: document how to properly create extendables (configs)
+// TODO: document ESLintUtils.RuleCreator(() => __filename) -> ESLintUtils.RuleCreator(name => `https://github.com/bitovi/eslint-plugin#readme`)
+// TODO: Monorepo for all the tooling related to using ESLint with Angular
