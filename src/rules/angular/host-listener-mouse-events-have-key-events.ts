@@ -1,8 +1,7 @@
 import { AST_NODE_TYPES, ESLintUtils, TSESTree } from '@typescript-eslint/utils';
 
 const hasHostListenerMouseKeyEvent = function (keyEvent: string, members: TSESTree.ClassElement[]) {
-  for (let i = 0; i < members.length; i++) {
-    const member = members[i];
+  for (const member of members) {
     if (
       !(member.type === AST_NODE_TYPES.MethodDefinition && member.kind === "method") &&
       member.type !== AST_NODE_TYPES.PropertyDefinition
@@ -15,8 +14,7 @@ const hasHostListenerMouseKeyEvent = function (keyEvent: string, members: TSESTr
       continue;
     }
 
-    for (let j = 0; j < decorators?.length; j++) {
-      const decorator = decorators[j];
+    for (const decorator of decorators) {
       if (decorator.expression.type !== AST_NODE_TYPES.CallExpression) {
         continue;
       }
