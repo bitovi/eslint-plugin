@@ -16,7 +16,7 @@ const hasHostListenerClickKeyEvent = function (members: TSESTree.ClassElement[])
       return false;
     }
     for (const decorator of decorators ?? []) {
-      if(decorator.expression.type !== AST_NODE_TYPES.CallExpression) {
+      if (decorator.expression.type !== AST_NODE_TYPES.CallExpression) {
         continue;
       }
       const expression = decorator.expression;
@@ -37,14 +37,14 @@ const hasHostListenerClickKeyEvent = function (members: TSESTree.ClassElement[])
 
 const createRule = ESLintUtils.RuleCreator(name => `https://github.com/bitovi/eslint-plugin#readme`);
 
-export const hostListenerClickEventsHaveKeyEventsName = "angular/host-listener-click-events-have-key-events"
-export const hostListenerClickEventsHaveKeyEventsRule = createRule({
+export const RULE_NAME = "angular/host-listener-click-events-have-key-events"
+export const rule = createRule({
   create(context) {
     return {
       [AST_NODE_TYPES.Decorator]: function (node: TSESTree.Decorator) {
 
         const expression = node.expression;
-        if(expression.type !== AST_NODE_TYPES.CallExpression || expression.callee.type !== AST_NODE_TYPES.Identifier) {
+        if (expression.type !== AST_NODE_TYPES.CallExpression || expression.callee.type !== AST_NODE_TYPES.Identifier) {
           return;
         }
         const isHostListener = expression.callee?.name === "HostListener";
@@ -54,7 +54,7 @@ export const hostListenerClickEventsHaveKeyEventsRule = createRule({
         }
 
         const [event] = expression.arguments ?? [];
-        if(event.type !== AST_NODE_TYPES.Literal) {
+        if (event.type !== AST_NODE_TYPES.Literal) {
           return;
         }
 
@@ -65,7 +65,7 @@ export const hostListenerClickEventsHaveKeyEventsRule = createRule({
         }
 
         const hostClass = node.parent?.parent;
-        if(hostClass?.type !== AST_NODE_TYPES.ClassBody) {
+        if (hostClass?.type !== AST_NODE_TYPES.ClassBody) {
           return;
         }
         if (!hasHostListenerClickKeyEvent(hostClass?.body)) {
@@ -89,6 +89,6 @@ export const hostListenerClickEventsHaveKeyEventsRule = createRule({
     type: "suggestion",
     schema: []
   },
-  name: hostListenerClickEventsHaveKeyEventsName,
+  name: RULE_NAME,
   defaultOptions: []
 });
