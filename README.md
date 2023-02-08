@@ -1,4 +1,6 @@
-# BitoviEslintPlugin
+# Bitovi ESLint Workspace
+
+## Libraries
 
 [@bitovi/eslint-plugin](./tools/eslint-rules) - An ESLint-specific plugin that contains our custom rules which are specific to Angular projects. It can be combined with any other ESLint plugins in the normal way.
 
@@ -37,7 +39,8 @@ nx lint eslint-rules
 
 ## Angular Team's Utilities
 
-This allows for visualizing the red quigly lines involved for eslint errors. We do this by taking advantage of `convertAnnotatedSourceToFailureCase` exported by `@angular-eslint/utils`.
+This allows for visualizing the red squiggly lines involved for eslint errors. We do this by taking advantage of `convertAnnotatedSourceToFailureCase` exported by `@angular-eslint/utils`.
+
 
 // TODO: link to documentation on `convertAnnotatedSourceToFailureCase`
 // TODO: document how to properly link up to eslintrc
