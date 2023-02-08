@@ -39,13 +39,4 @@ nx lint eslint-rules
 
 ## Angular Team's Utilities
 
-This allows for visualizing the red squiggly lines involved for eslint errors. We do this by taking advantage of `convertAnnotatedSourceToFailureCase` exported by `@angular-eslint/utils`.
-
-
-// TODO: link to documentation on `convertAnnotatedSourceToFailureCase`
-// TODO: document how to properly link up to eslintrc
-// TODO: document how to properly create extendables (configs)
-// TODO: document ESLintUtils.RuleCreator(() => __filename) -> ESLintUtils.RuleCreator(name => `https://github.com/bitovi/eslint-plugin#readme`)
-// TODO: Monorepo for all the tooling related to using ESLint with Angular
-// TODO: Look into prettier/formatter
-// TODO: Add husky
+This allows for visualizing the red squiggly lines involved for eslint errors. We do this by taking advantage of `convertAnnotatedSourceToFailureCase()` exported by `@angular-eslint/utils`.
