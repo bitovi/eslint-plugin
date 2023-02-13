@@ -1,6 +1,6 @@
 {
   "name": "@bitovi/eslint-workspace",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "license": "MIT",
   "scripts": {
     "test": "nx test eslint-rules",
