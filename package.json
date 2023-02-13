@@ -3,6 +3,7 @@
   "version": "2.0.2",
   "license": "MIT",
   "scripts": {
+    "prepare": "husky install",
     "test": "nx test eslint-rules",
     "build": "nx build eslint-rules",
     "lint": "nx lint eslint-rules --fix",

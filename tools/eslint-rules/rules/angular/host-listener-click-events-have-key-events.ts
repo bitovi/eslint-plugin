@@ -14,17 +14,30 @@
  * https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin/src/rules
  */
 
-import { AST_NODE_TYPES, ESLintUtils, TSESTree } from '@typescript-eslint/utils';
+import {
+  AST_NODE_TYPES,
+  ESLintUtils,
+  TSESTree,
+} from '@typescript-eslint/utils';
 
 // NOTE: The rule will be available in ESLint configs as "@nrwl/nx/workspace/angular/host-listener-click-events-have-key-events"
-export const RULE_NAME = "angular/host-listener-click-events-have-key-events";
+export const RULE_NAME = 'angular/host-listener-click-events-have-key-events';
 
-const hasHostListenerClickKeyEvent = function (members: TSESTree.ClassElement[]) {
-  const keyEvents: Record<string, number> = { keydown: 1, keypress: 1, keyup: 1 };
+const hasHostListenerClickKeyEvent = function (
+  members: TSESTree.ClassElement[]
+) {
+  const keyEvents: Record<string, number> = {
+    keydown: 1,
+    keypress: 1,
+    keyup: 1,
+  };
 
   for (const member of members) {
     if (
-      !(member.type === AST_NODE_TYPES.MethodDefinition && member.kind === "method") &&
+      !(
+        member.type === AST_NODE_TYPES.MethodDefinition &&
+        member.kind === 'method'
+      ) &&
       member.type !== AST_NODE_TYPES.PropertyDefinition
     ) {
       continue;
@@ -32,7 +45,7 @@ const hasHostListenerClickKeyEvent = function (members: TSESTree.ClassElement[])
     const decorators = member.decorators;
 
     if (!decorators) {
-      return false;
+      continue;
     }
     for (const decorator of decorators ?? []) {
       if (decorator.expression.type !== AST_NODE_TYPES.CallExpression) {
@@ -43,9 +56,9 @@ const hasHostListenerClickKeyEvent = function (members: TSESTree.ClassElement[])
 
       if (
         expression.callee.type === AST_NODE_TYPES.Identifier &&
-        expression.callee?.name === "HostListener" &&
+        expression.callee?.name === 'HostListener' &&
         event.type === AST_NODE_TYPES.Literal &&
-        typeof event.value === "string" &&
+        typeof event.value === 'string' &&
         keyEvents[event.value]
       ) {
         return true;
@@ -55,18 +68,23 @@ const hasHostListenerClickKeyEvent = function (members: TSESTree.ClassElement[])
   return false;
 };
 
-const createRule = ESLintUtils.RuleCreator(() => `https://github.com/bitovi/eslint-plugin/tree/main/tools/eslint-rules#readme`);
+const createRule = ESLintUtils.RuleCreator(
+  () =>
+    `https://github.com/bitovi/eslint-plugin/tree/main/tools/eslint-rules#readme`
+);
 
 export const rule = createRule({
   create(context) {
     return {
       [AST_NODE_TYPES.Decorator]: function (node: TSESTree.Decorator) {
-
         const expression = node.expression;
-        if (expression.type !== AST_NODE_TYPES.CallExpression || expression.callee.type !== AST_NODE_TYPES.Identifier) {
+        if (
+          expression.type !== AST_NODE_TYPES.CallExpression ||
+          expression.callee.type !== AST_NODE_TYPES.Identifier
+        ) {
           return;
         }
-        const isHostListener = expression.callee?.name === "HostListener";
+        const isHostListener = expression.callee?.name === 'HostListener';
 
         if (!isHostListener) {
           return;
@@ -77,7 +95,7 @@ export const rule = createRule({
           return;
         }
 
-        const isClickEvent = event.value === "click";
+        const isClickEvent = event.value === 'click';
 
         if (!isClickEvent) {
           return;
@@ -90,7 +108,7 @@ export const rule = createRule({
         if (!hasHostListenerClickKeyEvent(hostClass?.body)) {
           context.report({
             node: node,
-            messageId: "hostListenerClickEventsHaveKeyEvents",
+            messageId: 'hostListenerClickEventsHaveKeyEvents',
           });
         }
       },
@@ -98,16 +116,17 @@ export const rule = createRule({
   },
   meta: {
     docs: {
-      description: "Support keyup, keydown, or keypress events when handling click events",
-      recommended: "error"
+      description:
+        'Support keyup, keydown, or keypress events when handling click events',
+      recommended: 'error',
     },
     messages: {
       hostListenerClickEventsHaveKeyEvents:
-        "HostListener click must be accompanied by either keyup, keydown or keypress event for accessibility.",
+        'HostListener click must be accompanied by either keyup, keydown or keypress event for accessibility.',
     },
-    type: "suggestion",
-    schema: []
+    type: 'suggestion',
+    schema: [],
   },
   name: RULE_NAME,
-  defaultOptions: []
+  defaultOptions: [],
 });
