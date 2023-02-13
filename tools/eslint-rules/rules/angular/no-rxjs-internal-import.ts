@@ -20,8 +20,8 @@ import {
   AST_NODE_TYPES,
 } from '@typescript-eslint/utils';
 
-// NOTE: The rule will be available in ESLint configs as "@nrwl/nx/workspace/no-rxjs-internal-imports"
-export const RULE_NAME = 'no-rxjs-internal-imports';
+// NOTE: The rule will be available in ESLint configs as "@nrwl/nx/workspace/no-rxjs-internal-import"
+export const RULE_NAME = 'angular/no-rxjs-internal-import';
 
 export const rule = ESLintUtils.RuleCreator(
   () =>
@@ -49,7 +49,7 @@ export const rule = ESLintUtils.RuleCreator(
       ) {
         if (node.source.value.startsWith('rxjs/internal/')) {
           context.report({
-            node: node,
+            node: node.source,
             messageId: 'rxjsInternalImport',
             fix(fixer) {
               const [, , ...rest] = node.source.value.split('/');

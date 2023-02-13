@@ -1,5 +1,5 @@
 import { TSESLint } from '@typescript-eslint/utils';
-import { rule, RULE_NAME } from './no-rxjs-internal-imports';
+import { rule, RULE_NAME } from './no-rxjs-internal-import';
 
 const ruleTester = new TSESLint.RuleTester({
   parser: require.resolve('@typescript-eslint/parser'),
