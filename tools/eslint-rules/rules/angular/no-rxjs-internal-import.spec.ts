@@ -1,5 +1,6 @@
 import { TSESLint } from '@typescript-eslint/utils';
 import { rule, RULE_NAME } from './no-rxjs-internal-import';
+import { convertAnnotatedSourceToFailureCase } from '@angular-eslint/utils';
 
 const ruleTester = new TSESLint.RuleTester({
   parser: require.resolve('@typescript-eslint/parser'),
@@ -14,57 +15,57 @@ ruleTester.run(RULE_NAME, rule, {
     `import { AjaxDirection } from 'rxjs/ajax';`,
   ],
   invalid: [
-    {
-      code: `
+    convertAnnotatedSourceToFailureCase({
+      description:
+        'Should fail when importing Observable class from rxjs/internal/Observable',
+      annotatedSource: `
       import { Observable } from 'rxjs/internal/Observable';
+                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~
     `,
-      errors: [
-        {
-          messageId: 'rxjsInternalImport',
-        },
-      ],
-      output: `
+      messageId: 'rxjsInternalImport',
+      annotatedOutput: `
       import { Observable } from 'rxjs';
+                                 
     `,
-    },
-    {
-      code: `
+    }),
+    convertAnnotatedSourceToFailureCase({
+      description:
+        'Should fail when importing operators from rxjs/internal/operators/*',
+      annotatedSource: `
       import { switchMap } from 'rxjs/internal/operators/switchMap';
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     `,
-      errors: [
-        {
-          messageId: 'rxjsInternalImport',
-        },
-      ],
-      output: `
+      messageId: 'rxjsInternalImport',
+      annotatedOutput: `
       import { switchMap } from 'rxjs/operators';
+                                
     `,
-    },
-    {
-      code: `
+    }),
+    convertAnnotatedSourceToFailureCase({
+      description:
+        'Should fail when importing other utilies from their internal exports',
+      annotatedSource: `
       import { ajax } from 'rxjs/internal/ajax/ajax';
+                           ~~~~~~~~~~~~~~~~~~~~~~~~~
     `,
-      errors: [
-        {
-          messageId: 'rxjsInternalImport',
-        },
-      ],
-      output: `
+      messageId: 'rxjsInternalImport',
+      annotatedOutput: `
       import { ajax } from 'rxjs/ajax';
+                           
     `,
-    },
-    {
-      code: `
+    }),
+    convertAnnotatedSourceToFailureCase({
+      description:
+        'Should fail when importing other types from their internal exports',
+      annotatedSource: `
       import { AjaxDirection } from 'rxjs/internal/ajax/types';
+                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~
     `,
-      errors: [
-        {
-          messageId: 'rxjsInternalImport',
-        },
-      ],
-      output: `
+      messageId: 'rxjsInternalImport',
+      annotatedOutput: `
       import { AjaxDirection } from 'rxjs/ajax';
+                                    
     `,
-    },
+    }),
   ],
 });
