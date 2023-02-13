@@ -2,7 +2,10 @@ import {
   RULE_NAME as eventEmitterHasOutputName,
   rule as eventEmitterHasOutput,
 } from './rules/angular/event-emitter-has-output';
-
+import {
+  RULE_NAME as noRxjsInternalImportName,
+  rule as noRxjsInternalImport,
+} from './rules/angular/no-rxjs-internal-import';
 import {
   RULE_NAME as hostListenerClickEventsHaveKeyEventsName,
   rule as hostListenerClickEventsHaveKeyEvents,
@@ -42,5 +45,6 @@ module.exports = {
     [hostListenerClickEventsHaveKeyEventsName]:
       hostListenerClickEventsHaveKeyEvents,
     [eventEmitterHasOutputName]: eventEmitterHasOutput,
+    [noRxjsInternalImportName]: noRxjsInternalImport,
   },
 };

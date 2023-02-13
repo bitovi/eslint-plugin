@@ -1,0 +1,3 @@
+{
+  "jestrunner.configPath": "tools/eslint-rules/jest.config.ts"
+}
