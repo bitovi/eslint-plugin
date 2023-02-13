@@ -49,21 +49,45 @@ ruleTester.run(RULE_NAME, rule, {
       description:
         'Should warn when property not decorated by @Output is assigned new EventEmitter value',
       annotatedSource: `
-      class MyComponent {
-        myProperty = new EventEmitter();
-                     ~~~~~~~~~~~~~~~~~~
-      }`,
+@Component()
+class MyComponent {
+  myProperty = new EventEmitter();
+               ~~~~~~~~~~~~~~~~~~
+}`,
       messageId: 'eventEmitterHasOutput',
+      suggestions: [
+        {
+          messageId: 'addOutputDecoratorSuggestion',
+          output: `
+@Component()
+class MyComponent {
+  @Output() myProperty = new EventEmitter();
+               
+}`,
+        },
+      ],
     }),
     convertAnnotatedSourceToFailureCase({
       description:
         'Should warn when property not decorated by @Output has EventEmitter type annotation',
       annotatedSource: `
-      class MyComponent {
-        myProperty: EventEmitter<MyType>;
-        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      }`,
+@Component()
+class MyComponent {
+  myProperty: EventEmitter<MyType>;
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+}`,
       messageId: 'eventEmitterHasOutput',
+      suggestions: [
+        {
+          messageId: 'addOutputDecoratorSuggestion',
+          output: `
+@Component()
+class MyComponent {
+  @Output() myProperty: EventEmitter<MyType>;
+  
+}`,
+        },
+      ],
     }),
   ],
 });

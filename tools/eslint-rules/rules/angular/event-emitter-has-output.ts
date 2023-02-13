@@ -116,7 +116,7 @@ export const rule = createRule({
                 {
                   messageId: 'addOutputDecoratorSuggestion',
                   fix: function (fixer) {
-                    return fixer.insertTextBefore(node, '@Output()');
+                    return fixer.insertTextBefore(node, '@Output() ');
                   },
                 },
               ],
@@ -151,7 +151,7 @@ export const rule = createRule({
                 {
                   messageId: 'addOutputDecoratorSuggestion',
                   fix: function (fixer) {
-                    return fixer.insertTextBefore(node, '@Output()');
+                    return fixer.insertTextBefore(node, '@Output() ');
                   },
                 },
               ],
