@@ -61,13 +61,17 @@ export const rule = createRule({
   meta: {
     type: 'suggestion',
     docs: {
-      description: ``,
+      description: `Warns if a property of type EventEmitter doesn't have an @Output decorator to avoid mistakes`,
       recommended: 'warn',
     },
+    hasSuggestions: true,
     schema: [],
     messages: {
       eventEmitterHasOutput:
         'EventEmitters are most often used with @Output decorators. Please double-check the decorators in use by this property.',
+      addOutputDecoratorSuggestion: 'Add @Output() decorator',
+      replaceInputDecoratorWithOutputDecoratorSuggestion:
+        'Replace @Input() decorator with @Output()',
     },
   },
   defaultOptions: [],
@@ -94,6 +98,28 @@ export const rule = createRule({
             context.report({
               node: node,
               messageId: 'eventEmitterHasOutput',
+              suggest: [
+                {
+                  messageId:
+                    'replaceInputDecoratorWithOutputDecoratorSuggestion',
+                  fix: function* (fixer) {
+                    const inputDecorator = (node.decorators ?? []).find(
+                      (decorator) => checkDecoratorName(decorator, 'Input')
+                    );
+                    if (inputDecorator) {
+                      // Keep rule from showing if property has no @Input decorator
+                      yield fixer.remove(inputDecorator);
+                      yield fixer.insertTextBefore(node, '@Output()');
+                    }
+                  },
+                },
+                {
+                  messageId: 'addOutputDecoratorSuggestion',
+                  fix: function (fixer) {
+                    return fixer.insertTextBefore(node, '@Output()');
+                  },
+                },
+              ],
             });
             return;
           }
@@ -107,6 +133,28 @@ export const rule = createRule({
             context.report({
               node: node.value,
               messageId: 'eventEmitterHasOutput',
+              suggest: [
+                {
+                  messageId:
+                    'replaceInputDecoratorWithOutputDecoratorSuggestion',
+                  fix: function* (fixer) {
+                    const inputDecorator = (node.decorators ?? []).find(
+                      (decorator) => checkDecoratorName(decorator, 'Input')
+                    );
+                    if (inputDecorator) {
+                      // Keep rule from showing if property has no @Input decorator
+                      yield fixer.remove(inputDecorator);
+                      yield fixer.insertTextBefore(node, '@Output()');
+                    }
+                  },
+                },
+                {
+                  messageId: 'addOutputDecoratorSuggestion',
+                  fix: function (fixer) {
+                    return fixer.insertTextBefore(node, '@Output()');
+                  },
+                },
+              ],
             });
           }
         }
