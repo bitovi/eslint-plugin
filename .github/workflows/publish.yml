@@ -44,11 +44,10 @@ jobs:
               PRE_ID_COMMAND_STR="--preid $PRE_ID"
             fi
           fi
-          cd tools/eslint-rules
+          npm --prefix ./tools/eslint-rules version ${{ github.event.inputs.segment }} $PRE_ID_COMMAND_STR -m "Publish v%s"
+          git add ./tools/eslint-rules/package.json
+          git commit -m "Version bump for tools"
           npm version ${{ github.event.inputs.segment }} $PRE_ID_COMMAND_STR -m "Publish v%s"
-          cd ../..
-          git add .
-          git commit -m "Publish v%s"
       
       - name: "Publish Build"
         run: npm run build
