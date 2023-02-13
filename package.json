@@ -6,7 +6,7 @@
     "prepare": "husky install",
     "test": "nx test eslint-rules",
     "build": "nx build eslint-rules",
-    "lint": "nx lint --fix",
+    "lint": "nx run-many --all --target=lint",
     "format": "nx format:write --all ."
   },
   "private": true,
