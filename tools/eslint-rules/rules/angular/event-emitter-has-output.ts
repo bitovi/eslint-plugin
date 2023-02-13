@@ -92,7 +92,7 @@ export const rule = createRule({
             node.typeAnnotation.typeAnnotation.typeName.name === 'EventEmitter'
           ) {
             context.report({
-              node,
+              node: node,
               messageId: 'eventEmitterHasOutput',
             });
             return;
@@ -105,7 +105,7 @@ export const rule = createRule({
             node.value.callee.name === 'EventEmitter'
           ) {
             context.report({
-              node,
+              node: node.value,
               messageId: 'eventEmitterHasOutput',
             });
           }
