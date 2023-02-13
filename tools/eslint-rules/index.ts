@@ -1,4 +1,8 @@
 import {
+  RULE_NAME as noEntryComponentsName,
+  rule as noEntryComponents,
+} from './rules/angular/no-entry-components';
+import {
   RULE_NAME as noRxjsInternalImportName,
   rule as noRxjsInternalImport,
 } from './rules/angular/no-rxjs-internal-import';
@@ -41,5 +45,6 @@ module.exports = {
     [hostListenerClickEventsHaveKeyEventsName]:
       hostListenerClickEventsHaveKeyEvents,
     [noRxjsInternalImportName]: noRxjsInternalImport,
+    [noEntryComponentsName]: noEntryComponents,
   },
 };
