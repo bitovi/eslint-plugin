@@ -1,4 +1,9 @@
 import {
+  RULE_NAME as eventEmitterHasOutputName,
+  rule as eventEmitterHasOutput,
+} from './rules/angular/event-emitter-has-output';
+
+import {
   RULE_NAME as hostListenerClickEventsHaveKeyEventsName,
   rule as hostListenerClickEventsHaveKeyEvents,
 } from './rules/angular/host-listener-click-events-have-key-events';
@@ -36,5 +41,6 @@ module.exports = {
       hostListenerMouseEventsHaveKeyEvents,
     [hostListenerClickEventsHaveKeyEventsName]:
       hostListenerClickEventsHaveKeyEvents,
+    [eventEmitterHasOutputName]: eventEmitterHasOutput,
   },
 };
