@@ -28,7 +28,7 @@ jobs:
       - name: "Install"
         run: npm ci
 
-      - name: "Build"
+      - name: "Verify Build"
         run: npm run build
 
       - name: "Test"
@@ -46,10 +46,17 @@ jobs:
           fi
           cd tools/eslint-rules
           npm version ${{ github.event.inputs.segment }} $PRE_ID_COMMAND_STR -m "Publish v%s"
+          cd ../..
+          git add .
+          git commit -m "Publish v%s"
+      
+      - name: "Publish Build"
+        run: npm run build
+      
       - name: Publish to NPM Registry
         uses: JS-DevTools/npm-publish@v1
         with:
-          package: ./tools/eslint-rules/package.json
+          package: ./dist/eslint-rules/package.json
           token: ${{ secrets.NPM_TOKEN }}
 
       - name: Push Tag
