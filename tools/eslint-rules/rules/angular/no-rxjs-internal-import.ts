@@ -32,7 +32,7 @@ export const rule = ESLintUtils.RuleCreator(
     type: 'problem',
     fixable: 'code',
     docs: {
-      description: ``,
+      description: `Importing from 'rxjs/internal/*' prevents tree shaking. Import from 'rxjs/*' instead.`,
       recommended: 'error',
     },
     schema: [],
