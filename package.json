@@ -3,11 +3,11 @@
   "version": "2.0.2",
   "license": "MIT",
   "scripts": {
+    "prepare": "husky install",
     "test": "nx test eslint-rules",
     "build": "nx build eslint-rules",
-    "lint": "nx lint eslint-rules --fix",
-    "lint:demo": "nx lint demo",
-    "deploy": "cd dist/eslint-rules && npm publish"
+    "lint": "nx run-many --all --target=lint",
+    "format": "nx format:write --all ."
   },
   "private": true,
   "dependencies": {
@@ -51,9 +51,11 @@
     "eslint-config-prettier": "8.1.0",
     "eslint-plugin-cypress": "^2.10.3",
     "eslint-plugin-eslint-plugin": "^5.0.8",
+    "husky": "^8.0.3",
     "jest": "28.1.1",
     "jest-environment-jsdom": "28.1.1",
     "jest-preset-angular": "~12.2.3",
+    "lint-staged": "^12.5.0",
     "nx": "15.6.3",
     "prettier": "^2.6.2",
     "ts-jest": "28.0.5",

@@ -5,17 +5,24 @@ const tester = new TSESLint.RuleTester({
   parser: require.resolve('@typescript-eslint/parser'),
 });
 
-tester.run(
-  RULE_NAME,
-  rule, {
+tester.run(RULE_NAME, rule, {
   valid: [
+    {
+      code: `
+      export class MyComponent {
+        someMember = true;
+        @HostListener('keydown') keyHandler() {}
+        @HostListener('click') clickHandler() {}
+      }
+    `,
+    },
     {
       code: `
       class MyComponent {
         @HostListener('keydown') keyHandler() {}
         @HostListener('click') clickHandler() {}
       }
-    `
+    `,
     },
     {
       code: `
@@ -23,7 +30,7 @@ tester.run(
         @HostListener('keyup') keyHandler() {}
         @HostListener('click') clickHandler() {}
       }
-    `
+    `,
     },
     {
       code: `
@@ -31,7 +38,7 @@ tester.run(
         @HostListener('keypress') keyHandler() {}
         @HostListener('click') clickHandler() {}
       }
-    `
+    `,
     },
     {
       code: `
@@ -39,7 +46,7 @@ tester.run(
         @HostListener('keydown') keyHandler = () => {};
         @HostListener('click') clickHandler() {}
       }
-    `
+    `,
     },
     {
       code: `
@@ -48,8 +55,8 @@ tester.run(
         @HostListener('keydown') keyHandler = true;
         @HostListener('click') clickHandler() {}
       }
-    `
-    }
+    `,
+    },
   ],
   invalid: [
     {
@@ -57,11 +64,12 @@ tester.run(
       class MyComponent {
         @HostListener('click') clickHandler() {}
       }
-    `, errors: [
+    `,
+      errors: [
         {
-          messageId: 'hostListenerClickEventsHaveKeyEvents'
-        }
-      ]
-    }
-  ]
+          messageId: 'hostListenerClickEventsHaveKeyEvents',
+        },
+      ],
+    },
+  ],
 });

@@ -5,9 +5,7 @@ const tester = new TSESLint.RuleTester({
   parser: require.resolve('@typescript-eslint/parser'),
 });
 
-tester.run(
-  RULE_NAME,
-  rule, {
+tester.run(RULE_NAME, rule, {
   valid: [
     {
       code: `
@@ -15,7 +13,7 @@ tester.run(
         @HostListener('mouseout') keyHandler() {}
         @HostListener('blur') clickHandler() {}
       }
-    `
+    `,
     },
     {
       code: `
@@ -23,16 +21,8 @@ tester.run(
         @HostListener('mouseenter') keyHandler = () => {};
         @HostListener('focus') clickHandler() {}
       }
-    `
+    `,
     },
-    {
-      code: `
-      class MyComponent {
-        @HostListener('mouseout') keyHandler() {}
-        @HostListener('blur') clickHandler() {}
-      }
-    `
-    }
   ],
   invalid: [
     {
@@ -40,24 +30,24 @@ tester.run(
       class MyComponent {
         @HostListener('mouseout') clickHandler() {}
       }
-    `, errors: [
+    `,
+      errors: [
         {
-          messageId: 'hostListenerMouseEventsHaveKeyEvents'
-        }
-      ]
+          messageId: 'hostListenerMouseEventsHaveKeyEvents',
+        },
+      ],
     },
     {
       code: `
       class MyComponent {
         @HostListener('mouseover') clickHandler() {}
       }
-    `, errors: [
+    `,
+      errors: [
         {
-          messageId: 'hostListenerMouseEventsHaveKeyEvents'
-        }
-      ]
-    }
-  ]
-})
-
-
+          messageId: 'hostListenerMouseEventsHaveKeyEvents',
+        },
+      ],
+    },
+  ],
+});

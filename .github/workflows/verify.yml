@@ -20,6 +20,8 @@ jobs:
 
       - name: ESLint
         run: npm run lint
+      - name: Formater
+        run: npm run format
       - name: Test
         run: npm run test
 

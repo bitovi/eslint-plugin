@@ -8,11 +8,21 @@ import { Component, HostListener } from '@angular/core';
 export class AppComponent {
   title = 'angular-demo';
 
-  @HostListener('click') moo() {
+  @HostListener('click')
+  moocow() {
+    console.log('woo');
+  }
+
+  @HostListener('keypress')
+  moo() {
     console.log('woo');
   }
 
   @HostListener('mouseover') cow() {
+    console.log('woo');
+  }
+
+  @HostListener('focus') cow2() {
     console.log('woo');
   }
 }
