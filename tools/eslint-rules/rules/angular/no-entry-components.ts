@@ -32,7 +32,7 @@ export const rule = ESLintUtils.RuleCreator(
   meta: {
     type: 'problem',
     docs: {
-      description: ``,
+      description: `entryComponents property for NgModule metadata is deprecated in Angular v9. If project consumes Ivy Engine, entryComponents doesn't perform any functionality and are safe to remove.`,
       recommended: 'error',
     },
     fixable: 'code',
