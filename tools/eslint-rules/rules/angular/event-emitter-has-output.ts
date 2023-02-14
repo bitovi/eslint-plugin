@@ -23,20 +23,6 @@ import {
 // NOTE: The rule will be available in ESLint configs as "@nrwl/nx/workspace/angular/event-emitter-has-output"
 export const RULE_NAME = 'angular/event-emitter-has-output';
 
-// const checkPropertyForEventEmitter = (
-//   property: TSESTree.PropertyDefinition
-// ) => {
-//   if (
-//     property.typeAnnotation &&
-//     property.typeAnnotation.typeAnnotation.type ===
-//       AST_NODE_TYPES.TSTypeReference &&
-//       property.typeAnnotation.typeAnnotation.typeName.type === AST_NODE_TYPES.Identifier &&
-//       property.typeAnnotation.typeAnnotation.typeName.name === 'EventEmitter'
-//   ) {
-//     return
-//   }
-// };
-
 const checkDecoratorName = (
   decorator: TSESTree.Decorator,
   decoratorName: string
