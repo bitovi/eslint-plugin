@@ -36,12 +36,13 @@ export const rule = ESLintUtils.RuleCreator(() => __filename)({
     type: 'suggestion',
     fixable: 'code',
     docs: {
-      description: ``,
+      description: `SEO Friendly URLs should common all lowercase alphanumerics separated by forward slash ('/') or hyphens ('-')`,
       recommended: 'error',
     },
     schema: [],
     messages: {
-      routePathIsNotSeoFriendly: 'route path feels bad',
+      routePathIsNotSeoFriendly:
+        "SEO Friendly URLs should common all lowercase alphanumerics separated by forward slash ('/') or hyphens ('-')",
     },
   },
   defaultOptions: [],
