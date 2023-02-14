@@ -1,4 +1,10 @@
-import { Component, HostListener } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  Output,
+} from '@angular/core';
 
 @Component({
   selector: 'bitovi-root',
@@ -7,6 +13,11 @@ import { Component, HostListener } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-demo';
+
+  @Output() x = new EventEmitter();
+  @Output() y!: EventEmitter<{ name: string }>;
+  @Output() s = new EventEmitter();
+  @Output() t = new EventEmitter();
 
   @HostListener('click')
   moocow() {
