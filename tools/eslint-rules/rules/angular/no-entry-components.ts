@@ -20,6 +20,7 @@ import {
   TSESTree,
   TSESLint,
 } from '@typescript-eslint/utils';
+import { getObjectExpressionProperty } from '../../utilities/object-expression';
 
 // NOTE: The rule will be available in ESLint configs as "@nrwl/nx/workspace/angular/no-entry-components"
 export const RULE_NAME = 'angular/no-entry-components';
@@ -134,35 +135,4 @@ function isCallableDecoratorWithName(
   }
 
   return callee.name === decoratorName;
-}
-
-/**
- * Checks `ObjectExpression` for property with matching identity name.
- */
-function getObjectExpressionProperty(
-  objectExpression: TSESTree.ObjectExpression,
-  propertyName: string
-):
-  | TSESTree.PropertyComputedName
-  | TSESTree.PropertyNonComputedName
-  | undefined {
-  return objectExpression.properties.find(
-    (
-      property
-    ): property is
-      | TSESTree.PropertyComputedName
-      | TSESTree.PropertyNonComputedName => {
-      if (property.type !== AST_NODE_TYPES.Property) {
-        return false;
-      }
-
-      const identifier = property.key;
-
-      if (identifier.type !== AST_NODE_TYPES.Identifier) {
-        return false;
-      }
-
-      return identifier.name === propertyName;
-    }
-  );
 }
