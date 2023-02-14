@@ -1,4 +1,8 @@
 import {
+  RULE_NAME as seoFriendlyRoutePathName,
+  rule as seoFriendlyRoutePath,
+} from './rules/angular/seo-friendly-route-path';
+import {
   RULE_NAME as noEntryComponentsName,
   rule as noEntryComponents,
 } from './rules/angular/no-entry-components';
@@ -46,5 +50,6 @@ module.exports = {
       hostListenerClickEventsHaveKeyEvents,
     [noRxjsInternalImportName]: noRxjsInternalImport,
     [noEntryComponentsName]: noEntryComponents,
+    [seoFriendlyRoutePathName]: seoFriendlyRoutePath,
   },
 };
