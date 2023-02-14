@@ -1,4 +1,8 @@
 import {
+  RULE_NAME as eventEmitterHasOutputName,
+  rule as eventEmitterHasOutput,
+} from './rules/angular/event-emitter-has-output';
+import {
   RULE_NAME as noRxjsInternalImportName,
   rule as noRxjsInternalImport,
 } from './rules/angular/no-rxjs-internal-import';
@@ -40,6 +44,7 @@ module.exports = {
       hostListenerMouseEventsHaveKeyEvents,
     [hostListenerClickEventsHaveKeyEventsName]:
       hostListenerClickEventsHaveKeyEvents,
+    [eventEmitterHasOutputName]: eventEmitterHasOutput,
     [noRxjsInternalImportName]: noRxjsInternalImport,
   },
 };
