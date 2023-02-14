@@ -30,7 +30,10 @@ import { getObjectExpressionProperty } from '../../utilities/object-expression';
 // NOTE: The rule will be available in ESLint configs as "@nrwl/nx/workspace/seo-friendly-route-path"
 export const RULE_NAME = 'angular/seo-friendly-route-path';
 
-export const rule = ESLintUtils.RuleCreator(() => __filename)({
+export const rule = ESLintUtils.RuleCreator(
+  () =>
+    `https://github.com/bitovi/eslint-plugin/tree/main/tools/eslint-rules#readme`
+)({
   name: RULE_NAME,
   meta: {
     type: 'suggestion',
