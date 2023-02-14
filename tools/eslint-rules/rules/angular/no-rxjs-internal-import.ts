@@ -20,7 +20,7 @@ import {
   AST_NODE_TYPES,
 } from '@typescript-eslint/utils';
 
-// NOTE: The rule will be available in ESLint configs as "@nrwl/nx/workspace/no-rxjs-internal-import"
+// NOTE: The rule will be available in ESLint configs as "@nrwl/nx/workspace/angular/no-rxjs-internal-import"
 export const RULE_NAME = 'angular/no-rxjs-internal-import';
 
 export const rule = ESLintUtils.RuleCreator(
@@ -32,7 +32,7 @@ export const rule = ESLintUtils.RuleCreator(
     type: 'problem',
     fixable: 'code',
     docs: {
-      description: ``,
+      description: `Importing from 'rxjs/internal/*' prevents tree shaking. Import from 'rxjs/*' instead.`,
       recommended: 'error',
     },
     schema: [],

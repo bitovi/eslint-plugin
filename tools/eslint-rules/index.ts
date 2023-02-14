@@ -1,4 +1,8 @@
 import {
+  RULE_NAME as noEntryComponentsName,
+  rule as noEntryComponents,
+} from './rules/angular/no-entry-components';
+import {
   RULE_NAME as eventEmitterHasOutputName,
   rule as eventEmitterHasOutput,
 } from './rules/angular/event-emitter-has-output';
@@ -46,5 +50,6 @@ module.exports = {
       hostListenerClickEventsHaveKeyEvents,
     [eventEmitterHasOutputName]: eventEmitterHasOutput,
     [noRxjsInternalImportName]: noRxjsInternalImport,
+    [noEntryComponentsName]: noEntryComponents,
   },
 };
