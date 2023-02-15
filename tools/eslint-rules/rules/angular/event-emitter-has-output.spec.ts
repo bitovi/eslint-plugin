@@ -22,10 +22,26 @@ ruleTester.run(RULE_NAME, rule, {
         @Output() complete!: EventEmitter;
       }`,
     },
+    {
+      code: `
+      @Directive()
+      class MyComponent {
+        @Output() complete!: EventEmitter;
+      }`,
+    },
+    // Okay since it doesn't have a Component or Directive decorator
+    {
+      code: `
+      class MyUndecoratedComponent {
+        @Input() event = new EventEmitter();
+      }
+      `,
+    },
   ],
   invalid: [
     {
       code: `
+      @Directive()
       class MyComponent {
         @Input() myInput: EventEmitter<MyEvent>;
       }`,
@@ -33,6 +49,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `
+      @Component()
       class MyComponent {
         myProperty: EventEmitter;
       }`,
@@ -40,6 +57,7 @@ ruleTester.run(RULE_NAME, rule, {
     },
     {
       code: `
+      @Component()
       class MyComponent {
         myProperty = new EventEmitter();
       }`,
