@@ -10,7 +10,7 @@ You can learn about how to create your eslint rules by following [this walkthrou
 
 ## Development
 
-When creating eslint rules, you should use [AST Explorer](https://astexplorer.net/) to create your rules.
+When creating eslint rules, you should use [AST Explorer](https://astexplorer.net/).
 
 It's an interactive tool that allows you to view AST as you write your rules. To start creating your rules, you should update your parser and transform configuration options:
 
@@ -22,6 +22,10 @@ You can view your current parser and transform configuration by looking at the u
 It is recommended to turn on Prettier (a toggle found at the upper right corner of the bottom left panel once you've turned on your configuration options)
 
 Be sure to restart eslint server whenever you are adding / removing eslint rules from `.eslintrc.json` or updating their fix conditions.
+
+## Debugging
+
+While debugging eslint rules, one way to isolate a bug is to create a unit test for that use case. Then you can debug using jest debug to inspect state. It is recommended you install [firsttris/vscode-jest-runner](https://github.com/firsttris/vscode-jest-runner) so you can quickly run tests for an individual rule and toggle debug mode.
 
 ## Commands
 
