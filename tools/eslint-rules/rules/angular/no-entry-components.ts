@@ -20,6 +20,7 @@ import {
   TSESTree,
   TSESLint,
 } from '@typescript-eslint/utils';
+import { isCallableDecoratorWithName } from '../../utilities/left-land-side-expression/is-callable-decorator-with-name';
 import { getObjectExpressionProperty } from '../../utilities/object-expression';
 
 // NOTE: The rule will be available in ESLint configs as "@nrwl/nx/workspace/angular/no-entry-components"
@@ -115,24 +116,4 @@ function removeNodeAndTrailingCommas<
   }
 
   return fixer.removeRange([start, end]);
-}
-
-/**
- * Confirms `LeftHandSideExpression` is a callable Decorator and verifies that its identifer name matches.
- */
-function isCallableDecoratorWithName(
-  expression: TSESTree.LeftHandSideExpression,
-  decoratorName: string
-): expression is TSESTree.CallExpression {
-  if (expression.type !== AST_NODE_TYPES.CallExpression) {
-    return false;
-  }
-
-  const callee = expression.callee;
-
-  if (callee.type !== AST_NODE_TYPES.Identifier) {
-    return false;
-  }
-
-  return callee.name === decoratorName;
 }
