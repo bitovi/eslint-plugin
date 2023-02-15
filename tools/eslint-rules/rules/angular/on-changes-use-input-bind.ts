@@ -160,14 +160,12 @@ export const rule = ESLintUtils.RuleCreator(
               node: property,
               messageId: 'simpleChangeExcludesProperty',
               fix(fixer) {
-                // const startOfBody = node.body.range[0] + 1;
-                // const firstElement = node.body.body[0].range[0];
-                // // const spacing = context.getSourceCode().getText().substring(startOfBody, firstElement);
+                const firstNodeInBody = node.body.body[0];
                 return fixer.insertTextBefore(
-                  node.body.body[0],
+                  firstNodeInBody,
                   `@Input() ${property.value}!: unknown;${getIndentation(
                     context,
-                    node.body.body[0]
+                    firstNodeInBody
                   )}`
                 );
               },

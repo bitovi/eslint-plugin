@@ -1,5 +1,5 @@
 import { AST_NODE_TYPES, TSESTree } from '@typescript-eslint/utils';
-import { MemberExpressionGetter, TESNode } from './types';
+import { MemberExpressionGetter } from './types';
 import { parametersToIdentifiers } from '../parameter/get-parameter-identifiers';
 import { excludeMemberExpressionsByIdentifiers } from './exclude-member-expressions-by-identifier';
 /**
@@ -23,7 +23,7 @@ const IMPORT_EMPTY: MemberExpressionGetter = () => [
  * Searches node tree deeply for all MemberExpressions
  */
 export function getMemberExpressionsFromNode(
-  node?: TESNode | null
+  node?: TSESTree.Node | null
 ): TSESTree.MemberExpression[] {
   if (!node) {
     return [];
@@ -36,7 +36,7 @@ export function getMemberExpressionsFromNode(
   }
 
   const fn = memberExpressionGetterMap[type] as (
-    node: TESNode
+    node: TSESTree.Node
   ) => TSESTree.MemberExpression[];
 
   return fn(node);
@@ -46,7 +46,7 @@ export function getMemberExpressionsFromNode(
  * Searches multiple node trees deeply for all MemberExpressions
  */
 export function getMemberExpressionsFromNodes(
-  nodes?: (TESNode | undefined | null)[]
+  nodes?: (TSESTree.Node | undefined | null)[]
 ): TSESTree.MemberExpression[] {
   if (!nodes) {
     return [];
