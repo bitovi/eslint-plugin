@@ -10,7 +10,7 @@ You can learn about how to create your eslint rules by following [this walkthrou
 
 ## Development
 
-When creating eslint rules, you should use [AST Explorer](https://astexplorer.net/) while create your rules.
+When creating eslint rules, you should use [AST Explorer](https://astexplorer.net/).
 
 It's an interactive tool that allows you to view AST as you write your rules. To start creating your rules, you should update your parser and transform configuration options:
 
