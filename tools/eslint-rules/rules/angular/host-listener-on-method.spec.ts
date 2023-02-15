@@ -25,6 +25,14 @@ ruleTester.run(RULE_NAME, rule, {
         @HostListener('click') clickHandler = () => {};
       }`,
     },
+    {
+      name: 'should be allowed on members assigned to function expressions',
+      code: `
+      @Component()
+      class MyComponent {
+        @HostListener('click') clickHandler = function() {};
+      }`,
+    },
   ],
   invalid: [
     {
