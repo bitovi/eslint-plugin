@@ -1,4 +1,8 @@
 import {
+  RULE_NAME as onChangesUseInputBindName,
+  rule as onChangesUseInputBind,
+} from './rules/angular/on-changes-use-input-bind';
+import {
   RULE_NAME as seoFriendlyRoutePathName,
   rule as seoFriendlyRoutePath,
 } from './rules/angular/seo-friendly-route-path';
@@ -56,5 +60,6 @@ module.exports = {
     [noRxjsInternalImportName]: noRxjsInternalImport,
     [noEntryComponentsName]: noEntryComponents,
     [seoFriendlyRoutePathName]: seoFriendlyRoutePath,
+    [onChangesUseInputBindName]: onChangesUseInputBind,
   },
 };
