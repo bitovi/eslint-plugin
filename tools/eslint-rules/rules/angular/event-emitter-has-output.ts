@@ -66,6 +66,24 @@ export const rule = createRule({
       [AST_NODE_TYPES.PropertyDefinition]: function (
         node: TSESTree.PropertyDefinition
       ) {
+        // Check if owning class is a Component or a Directive
+        const classDeclaration = node.parent?.parent;
+        if (classDeclaration?.type === AST_NODE_TYPES.ClassDeclaration) {
+          if (
+            !(classDeclaration.decorators ?? []).find((d) =>
+              checkDecoratorName(d, 'Component')
+            ) &&
+            !(classDeclaration.decorators ?? []).find((d) =>
+              checkDecoratorName(d, 'Directive')
+            )
+          ) {
+            // Doesn't have a @Component or @Directive decorator, so skip
+            return;
+          }
+        } else {
+          // Not in a class, so skip (This shouln't be possible)
+          return;
+        }
         const decorators = node.decorators ?? [];
         if (
           !decorators.find((decorator) =>
