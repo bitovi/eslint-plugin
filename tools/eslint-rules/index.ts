@@ -1,4 +1,8 @@
 import {
+  RULE_NAME as hostListenerOnMethodName,
+  rule as hostListenerOnMethod,
+} from './rules/angular/host-listener-on-method';
+import {
   RULE_NAME as onChangesUseInputBindName,
   rule as onChangesUseInputBind,
 } from './rules/angular/on-changes-use-input-bind';
@@ -61,5 +65,6 @@ module.exports = {
     [noEntryComponentsName]: noEntryComponents,
     [seoFriendlyRoutePathName]: seoFriendlyRoutePath,
     [onChangesUseInputBindName]: onChangesUseInputBind,
+    [hostListenerOnMethodName]: hostListenerOnMethod,
   },
 };
