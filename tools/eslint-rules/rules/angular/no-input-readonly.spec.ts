@@ -17,6 +17,14 @@ ruleTester.run(RULE_NAME, rule, {
       @Input() color = 'red';
     }`,
     },
+    {
+      name: 'should pass when readonly is used in non-component or directive class',
+      code: `
+      @Fancy()
+      class MyComponent {
+        @Input() readonly neverGonnaChangeMe = 'hah';
+      }`,
+    },
   ],
   invalid: [
     convertAnnotatedSourceToFailureCase({

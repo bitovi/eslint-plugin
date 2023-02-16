@@ -19,6 +19,7 @@ import {
   AST_NODE_TYPES,
   TSESTree,
 } from '@typescript-eslint/utils';
+import { isInDecoratedClass } from '../../utilities/node/is-in-decorated-class';
 
 // NOTE: The rule will be available in ESLint configs as "@nrwl/nx/workspace/angular/no-input-readonly"
 export const RULE_NAME = 'angular/no-input-readonly';
@@ -36,7 +37,7 @@ export const rule = ESLintUtils.RuleCreator(
     },
     schema: [],
     messages: {
-      noInputReadonly: `@Input properties marked as read-only cannot be binded to`,
+      noInputReadonly: `@Input properties marked as read-only cannot be bound to`,
     },
   },
   defaultOptions: [],
@@ -55,21 +56,8 @@ export const rule = ESLintUtils.RuleCreator(
         }
 
         // Check if owning class is a Component or a Directive
-        const classDeclaration = node.parent?.parent?.parent;
-        if (classDeclaration?.type === AST_NODE_TYPES.ClassDeclaration) {
-          if (
-            !(classDeclaration.decorators ?? []).find((d) =>
-              checkDecoratorName(d, 'Component')
-            ) &&
-            !(classDeclaration.decorators ?? []).find((d) =>
-              checkDecoratorName(d, 'Directive')
-            )
-          ) {
-            // Doesn't have a @Component or @Directive decorator, so skip
-            return;
-          }
-        } else {
-          // Not in a class, so skip
+        if (!isInDecoratedClass(node, ['Component', 'Directive'])) {
+          // not in a class decorated by @Component or @Directive, skip
           return;
         }
 
@@ -97,17 +85,3 @@ export const rule = ESLintUtils.RuleCreator(
     };
   },
 });
-
-const checkDecoratorName = (
-  decorator: TSESTree.Decorator,
-  decoratorName: string
-): boolean => {
-  const expression = decorator.expression;
-  if (
-    expression.type !== AST_NODE_TYPES.CallExpression ||
-    expression.callee.type !== AST_NODE_TYPES.Identifier
-  ) {
-    return false;
-  }
-  return expression.callee.name === decoratorName;
-};

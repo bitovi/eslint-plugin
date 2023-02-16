@@ -16,3 +16,17 @@ export function hasDecoratorWithName(
     isCallableDecoratorWithName(decorator.expression, decoratorName)
   );
 }
+
+/**
+ * Confirms that Class has at least one Decorator with name
+ */
+export function hasSomeDecoratorWithName(
+  declaration: TSESTree.ClassDeclaration,
+  decoratorNames: string[]
+): boolean {
+  if (!declaration.decorators) {
+    return false;
+  }
+
+  return decoratorNames.some((name) => hasDecoratorWithName(declaration, name));
+}
