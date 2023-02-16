@@ -23,7 +23,10 @@ import {
 // NOTE: The rule will be available in ESLint configs as "@nrwl/nx/workspace/angular/host-listener-on-method"
 export const RULE_NAME = 'angular/host-listener-on-method';
 
-export const rule = ESLintUtils.RuleCreator(() => __filename)({
+export const rule = ESLintUtils.RuleCreator(
+  () =>
+    `https://github.com/bitovi/eslint-plugin/tree/main/tools/eslint-rules#readme`
+)({
   name: RULE_NAME,
   meta: {
     type: 'problem',
