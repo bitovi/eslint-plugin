@@ -21,7 +21,6 @@ export class AppComponent implements OnChanges {
   @Output() x = new EventEmitter();
   @Output() y!: EventEmitter<{ name: string }>;
   @Output() s = new EventEmitter();
-  @Output() @Input() t = new EventEmitter();
 
   @HostListener('click')
   moocow() {
