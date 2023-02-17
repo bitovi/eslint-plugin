@@ -19,6 +19,7 @@ import {
   ESLintUtils,
   TSESTree,
 } from '@typescript-eslint/utils';
+import { isInDecoratedClass } from '../../utilities/node/is-in-decorated-class';
 
 // NOTE: The rule will be available in ESLint configs as "@nrwl/nx/workspace/angular/event-emitter-has-output"
 export const RULE_NAME = 'angular/event-emitter-has-output';
@@ -67,21 +68,8 @@ export const rule = createRule({
         node: TSESTree.PropertyDefinition
       ) {
         // Check if owning class is a Component or a Directive
-        const classDeclaration = node.parent?.parent;
-        if (classDeclaration?.type === AST_NODE_TYPES.ClassDeclaration) {
-          if (
-            !(classDeclaration.decorators ?? []).find((d) =>
-              checkDecoratorName(d, 'Component')
-            ) &&
-            !(classDeclaration.decorators ?? []).find((d) =>
-              checkDecoratorName(d, 'Directive')
-            )
-          ) {
-            // Doesn't have a @Component or @Directive decorator, so skip
-            return;
-          }
-        } else {
-          // Not in a class, so skip (This shouln't be possible)
+        if (!isInDecoratedClass(node, ['Component', 'Directive'])) {
+          // not in a class decorated by @Component or @Directive, skip
           return;
         }
         const decorators = node.decorators ?? [];

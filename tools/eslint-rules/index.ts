@@ -1,4 +1,8 @@
 import {
+  RULE_NAME as noInputReadonlyName,
+  rule as noInputReadonly,
+} from './rules/angular/no-input-readonly';
+import {
   RULE_NAME as hostListenerOnMethodName,
   rule as hostListenerOnMethod,
 } from './rules/angular/host-listener-on-method';
@@ -66,5 +70,6 @@ module.exports = {
     [seoFriendlyRoutePathName]: seoFriendlyRoutePath,
     [onChangesUseInputBindName]: onChangesUseInputBind,
     [hostListenerOnMethodName]: hostListenerOnMethod,
+    [noInputReadonlyName]: noInputReadonly,
   },
 };
