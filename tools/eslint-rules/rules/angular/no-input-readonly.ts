@@ -35,6 +35,7 @@ export const rule = ESLintUtils.RuleCreator(
       description: `Marking @Input properties as read-only prevents consumers from binding to inputs`,
       recommended: 'error',
     },
+    fixable: 'code',
     schema: [],
     messages: {
       noInputReadonly: `@Input properties marked as read-only cannot be bound to`,
@@ -73,13 +74,23 @@ export const rule = ESLintUtils.RuleCreator(
         context.report({
           node: propertyDefinition,
           messageId: 'noInputReadonly',
-          // fix: function (fixer) {
-          //   // Remove 'readonly '
-          //   return fixer.replaceTextRange(
-          //     [propertyDefinition.range[0], propertyDefinition.range[0] + 9],
-          //     ''
-          //   );
-          // },
+          fix: function (fixer) {
+            const readonlyIndex = context
+              .getSourceCode()
+              .getText(propertyDefinition)
+              .indexOf('readonly');
+            if (readonlyIndex < 0) {
+              return null;
+            }
+            // Remove 'readonly '
+            return fixer.replaceTextRange(
+              [
+                propertyDefinition.range[0] + readonlyIndex,
+                propertyDefinition.range[0] + readonlyIndex + 9,
+              ],
+              ''
+            );
+          },
         });
       },
     };

@@ -36,6 +36,12 @@ ruleTester.run(RULE_NAME, rule, {
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       }`,
       messageId: 'noInputReadonly',
+      annotatedOutput: `
+      @Component()
+      class MyComponent {
+        @Input() userName!: string;
+        
+      }`,
     }),
   ],
 });
