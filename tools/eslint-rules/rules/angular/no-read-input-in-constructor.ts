@@ -21,6 +21,7 @@ import {
 } from '@typescript-eslint/utils';
 import { isInDecoratedClass } from '../../utilities/node/is-in-decorated-class';
 import { isCallableDecoratorWithName } from '../../utilities/left-land-side-expression/is-callable-decorator-with-name';
+import { getMemberExpressionsFromNode } from '../../utilities/member-expression/get-member-expressions-from-node';
 
 // NOTE: The rule will be available in ESLint configs as "@nrwl/nx/workspace/angular/no-read-input-in-constructor"
 export const RULE_NAME = 'angular/no-read-input-in-constructor';
@@ -37,7 +38,9 @@ export const rule = ESLintUtils.RuleCreator(
       recommended: 'error',
     },
     schema: [],
-    messages: {},
+    messages: {
+      noReadInputInConstructor: `@Input member values are not available in the constructor. Please use ngOnInit.`,
+    },
   },
   defaultOptions: [],
   create(context) {
@@ -53,7 +56,20 @@ export const rule = ESLintUtils.RuleCreator(
           return;
         }
 
-        const classDeclaration = node.parent?.parent;
+        const propertyDefinition = node.parent;
+        if (propertyDefinition?.type !== AST_NODE_TYPES.PropertyDefinition) {
+          // Decorator not on property
+          return;
+        }
+
+        const propertyIdentifier = propertyDefinition.key;
+        if (propertyIdentifier.type !== AST_NODE_TYPES.Identifier) {
+          return;
+        }
+
+        const propertyName = propertyIdentifier.name;
+
+        const classDeclaration = node.parent?.parent?.parent;
         if (classDeclaration?.type !== AST_NODE_TYPES.ClassDeclaration) {
           // Couldn't find class definition
           return;
@@ -76,9 +92,23 @@ export const rule = ESLintUtils.RuleCreator(
           return;
         }
 
-        // const constructorStatements = constructor.value.body.body;
-        // TODO: Look through statements for usage of input
-        // TODO: Consider changing to look at constructor FIRST
+        const inputReferences = getMemberExpressionsFromNode(
+          constructor
+        ).filter(
+          (exp) =>
+            exp.property.type === AST_NODE_TYPES.Identifier &&
+            exp.property.name === propertyName &&
+            // Exclude left-hand assignment references
+            (exp.parent?.type !== AST_NODE_TYPES.AssignmentExpression ||
+              exp.parent.left !== exp)
+        );
+
+        inputReferences.forEach((node) => {
+          context.report({
+            node,
+            messageId: 'noReadInputInConstructor',
+          });
+        });
       },
     };
   },
