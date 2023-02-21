@@ -1,4 +1,8 @@
 import {
+  RULE_NAME as noReadInputInConstructorName,
+  rule as noReadInputInConstructor,
+} from './rules/angular/no-read-input-in-constructor';
+import {
   RULE_NAME as noInputReadonlyName,
   rule as noInputReadonly,
 } from './rules/angular/no-input-readonly';
@@ -71,5 +75,6 @@ module.exports = {
     [onChangesUseInputBindName]: onChangesUseInputBind,
     [hostListenerOnMethodName]: hostListenerOnMethod,
     [noInputReadonlyName]: noInputReadonly,
+    [noReadInputInConstructorName]: noReadInputInConstructor,
   },
 };
