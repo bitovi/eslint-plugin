@@ -9,10 +9,28 @@ const ruleTester = new TSESLint.RuleTester({
 ruleTester.run(RULE_NAME, rule, {
   valid: [
     {
-      name: 'should allow non-input values to be referenced in constructor',
+      name: 'should allow non-input values to be referenced in constructor of component',
       code: `
     @Component()
     class MyComponent {
+      @Input() myInput!: string;
+      nonInput!; string;
+
+      constructor() {
+        if(this.nonInput) {
+          console.log('hi!');
+        }
+        const value = this.nonInput;
+        this.nonInput = 'someValue';
+      }
+    }
+    `,
+    },
+    {
+      name: 'should allow non-input values to be referenced in constructor of directive',
+      code: `
+    @Directive()
+    class MyDirective {
       @Input() myInput!: string;
       nonInput!; string;
 

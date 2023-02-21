@@ -34,12 +34,12 @@ export const rule = ESLintUtils.RuleCreator(
   meta: {
     type: 'problem',
     docs: {
-      description: `@Input member values are not available in the constructor. Please use ngOnInit.`,
+      description: `@Input member values are not available in the constructor.`,
       recommended: 'error',
     },
     schema: [],
     messages: {
-      noReadInputInConstructor: `@Input member values are not available in the constructor. Please use ngOnInit.`,
+      noReadInputInConstructor: `@Input member values are not available in the constructor. Please use a lifecycle hook, such as ngOnInit.`,
     },
   },
   defaultOptions: [],
