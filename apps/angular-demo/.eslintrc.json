@@ -13,6 +13,7 @@
         "@nrwl/nx/workspace/angular/on-changes-use-input-bind": "error",
         "@nrwl/nx/workspace/angular/event-emitter-has-output": "warn",
         "@nrwl/nx/workspace/angular/no-input-readonly": "error",
+        "@nrwl/nx/workspace/angular/no-read-input-in-constructor": "error",
         "@angular-eslint/directive-selector": [
           "error",
           {
