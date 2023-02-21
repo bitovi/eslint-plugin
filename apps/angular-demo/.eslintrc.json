@@ -5,14 +5,14 @@
     {
       "files": ["*.ts"],
       "rules": {
-        "@nrwl/nx/workspace/angular/host-listener-mouse-events-have-key-events": "error",
-        "@nrwl/nx/workspace/angular/host-listener-click-events-have-key-events": "error",
-        "@nrwl/nx/workspace/angular/no-rxjs-internal-import": "error",
-        "@nrwl/nx/workspace/angular/no-entry-components": "error",
-        "@nrwl/nx/workspace/angular/seo-friendly-route-path": "error",
-        "@nrwl/nx/workspace/angular/on-changes-use-input-bind": "error",
-        "@nrwl/nx/workspace/angular/event-emitter-has-output": "warn",
-        "@nrwl/nx/workspace/angular/no-input-readonly": "error",
+        "@bitovi/nx-glue/bitovi/angular/host-listener-mouse-events-have-key-events": "error",
+        "@bitovi/nx-glue/bitovi/angular/host-listener-click-events-have-key-events": "error",
+        "@bitovi/nx-glue/bitovi/angular/no-rxjs-internal-import": "error",
+        "@bitovi/nx-glue/bitovi/angular/no-entry-components": "error",
+        "@bitovi/nx-glue/bitovi/angular/seo-friendly-route-path": "error",
+        "@bitovi/nx-glue/bitovi/angular/on-changes-use-input-bind": "error",
+        "@bitovi/nx-glue/bitovi/angular/event-emitter-has-output": "warn",
+        "@bitovi/nx-glue/bitovi/angular/no-input-readonly": "error",
         "@angular-eslint/directive-selector": [
           "error",
           {
