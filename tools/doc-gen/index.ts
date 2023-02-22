@@ -342,7 +342,7 @@ function normalizeCodeBlockIndentation(codeblock: string): string {
     .replace(/\n[\s]*$/, '')
     .split('\n');
 
-  const minIndent = Math.min(...lines.map(indentSize));
+  const minIndent = Math.min(...lines.filter((l) => l.length).map(indentSize));
   return lines.map((l) => l.substring(minIndent)).join('\n');
 }
 

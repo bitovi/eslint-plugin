@@ -7,38 +7,38 @@
 ### should allow non-input values to be referenced in constructor of component
 
 ```ts
-    @Component()
-    class MyComponent {
-      @Input() myInput!: string;
-      nonInput!; string;
+@Component()
+class MyComponent {
+  @Input() myInput!: string;
+  nonInput!; string;
 
-      constructor() {
-        if(this.nonInput) {
-          console.log('hi!');
-        }
-        const value = this.nonInput;
-        this.nonInput = 'someValue';
-      }
+  constructor() {
+    if(this.nonInput) {
+      console.log('hi!');
     }
+    const value = this.nonInput;
+    this.nonInput = 'someValue';
+  }
+}
 ```
 
 
 ### should allow non-input values to be referenced in constructor of directive
 
 ```ts
-    @Directive()
-    class MyDirective {
-      @Input() myInput!: string;
-      nonInput!; string;
+@Directive()
+class MyDirective {
+  @Input() myInput!: string;
+  nonInput!; string;
 
-      constructor() {
-        if(this.nonInput) {
-          console.log('hi!');
-        }
-        const value = this.nonInput;
-        this.nonInput = 'someValue';
-      }
+  constructor() {
+    if(this.nonInput) {
+      console.log('hi!');
     }
+    const value = this.nonInput;
+    this.nonInput = 'someValue';
+  }
+}
 ```
 
 
@@ -63,34 +63,34 @@
 ### should fail when accessing @Input decorated member within condition in constructor
 
 ```ts
-      @Component()
-      class MyComponent {
-        @Input() inputA!: boolean;
-        myProp = 'x';
+@Component()
+class MyComponent {
+  @Input() inputA!: boolean;
+  myProp = 'x';
 
-        constructor() {
-          if(this.inputA) {
-             ~~~~~~~~~~~
-             this.myProp = 'other value';
-          }
-        }
-      }
+  constructor() {
+    if(this.inputA) {
+       ~~~~~~~~~~~
+       this.myProp = 'other value';
+    }
+  }
+}
 ```
 
 
 ### should fail when reading @Input decorated member in constructor
 
 ```ts
-      @Component()
-      class MyComponent {
-        @Input() inputA!: boolean;
-        myProp = 'x';
+@Component()
+class MyComponent {
+  @Input() inputA!: boolean;
+  myProp = 'x';
 
-        constructor() {
-          const temp = this.inputA;
-                       ~~~~~~~~~~~
-        }
-      }
+  constructor() {
+    const temp = this.inputA;
+                 ~~~~~~~~~~~
+  }
+}
 ```
 
 

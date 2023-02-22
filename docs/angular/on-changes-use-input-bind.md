@@ -13,15 +13,15 @@ No test cases
 ### Should fail when Input bind is missing
 
 ```ts
-      @Component({})
-      class MyComponent {
-        prop = 50;
+@Component({})
+class MyComponent {
+  prop = 50;
 
-        ngOnChanges(changes: SimpleChanges): void {
-          changes['prop'];
-                  ~~~~~~
-        }
-      }
+  ngOnChanges(changes: SimpleChanges): void {
+    changes['prop'];
+            ~~~~~~
+  }
+}
 ```
 
 
