@@ -221,6 +221,8 @@ async function readRuleData(ruleInfo: RuleFileInfo): Promise<RuleData> {
               prop.name.escapedText === 'annotatedSource'
           );
 
+          // TODO: handle extracting fix and suggestion info
+
           const caseInfo: any = {};
           if (
             nameNode &&
