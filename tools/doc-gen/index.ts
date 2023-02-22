@@ -271,20 +271,6 @@ async function readRuleData(ruleInfo: RuleFileInfo): Promise<RuleData> {
 }
 
 /**
- * Remove leading indentation on code block while maintaining overall
- * indentation
- * @param codeblock Code block to clean up
- * @returns
- */
-function normalizeCodeBlockIndentation(codeblock: string): string {
-  const indentSize = (line: string) => (line.match(/^[\s]+/) ?? [''])[0].length;
-  const lines = codeblock.replace(/^\n/, '').split('\n');
-
-  const minIndent = Math.min(...lines.map(indentSize));
-  return lines.map((l) => l.substring(minIndent)).join('\n');
-}
-
-/**
  * Generate markdown documentation for given rule
  * (Goes to path stored in outputPath)
  * @param name rule display name
@@ -317,7 +303,7 @@ ${normalizeCodeBlockIndentation(testCase.code)}
 
   const md = `# Rule \`${ruleData.name}\`
 
-${ruleData.description}
+${normalizeMarkdownText(ruleData.description ?? '')}
 
 ## Valid Usage
 
@@ -339,6 +325,35 @@ async function generateDocsForRules(ruleFileInfo: RuleFileInfo[]) {
     const data = await readRuleData(rule);
     generateDocumentation(data);
   }
+}
+
+/**
+ * Remove leading indentation on code block while maintaining overall
+ * indentation
+ * @param codeblock Code block to clean up
+ * @returns
+ */
+function normalizeCodeBlockIndentation(codeblock: string): string {
+  const indentSize = (line: string) => (line.match(/^[\s]+/) ?? [''])[0].length;
+  const lines = codeblock.replace(/^\n/, '').split('\n');
+
+  const minIndent = Math.min(...lines.map(indentSize));
+  return lines.map((l) => l.substring(minIndent)).join('\n');
+}
+
+/**
+ * Escapes special markdown characters and normalizes indentation on non-markdown
+ * text
+ * @param text
+ * @returns
+ */
+function normalizeMarkdownText(text: string): string {
+  return text
+    .replace(/\*/g, '\\*')
+    .replace(/#/g, '\\#')
+    .split('\n')
+    .map((l) => l.trim())
+    .join('\n');
 }
 
 // -----
