@@ -331,13 +331,16 @@ async function generateDocsForRules(ruleFileInfo: RuleFileInfo[]) {
 
 /**
  * Remove leading indentation on code block while maintaining overall
- * indentation
+ * indentation. Also cleans up leading or trailing blank line
  * @param codeblock Code block to clean up
  * @returns
  */
 function normalizeCodeBlockIndentation(codeblock: string): string {
   const indentSize = (line: string) => (line.match(/^[\s]+/) ?? [''])[0].length;
-  const lines = codeblock.replace(/^\n/, '').split('\n');
+  const lines = codeblock
+    .replace(/^\n/, '')
+    .replace(/\n[\s]*$/, '')
+    .split('\n');
 
   const minIndent = Math.min(...lines.map(indentSize));
   return lines.map((l) => l.substring(minIndent)).join('\n');

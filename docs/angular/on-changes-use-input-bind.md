@@ -22,7 +22,6 @@ No test cases
                   ~~~~~~
         }
       }
-      
 ```
 
 
@@ -36,7 +35,6 @@ class MyComponent {
             ~~~~~~
   }
 }
-
 ```
 
 
@@ -52,7 +50,6 @@ class MyDirective {
     }
   }
 }
-
 ```
 
 
