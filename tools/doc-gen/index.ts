@@ -3,6 +3,10 @@ import { readFileSync, readdirSync, writeFileSync } from 'fs';
 import ts from 'typescript';
 import type { TSESLint } from '@typescript-eslint/utils';
 
+// TODO: Add logic to ensure output directory exists
+// TODO: Add logic for cleaning output directory
+// TODO: Add configuration support
+
 interface RuleFileInfo {
   baseName: string;
   rule: string;
@@ -120,7 +124,8 @@ async function readRuleData(ruleInfo: RuleFileInfo): Promise<RuleData> {
         ) {
           caseInfo['name'] = nameNode.initializer.text;
         } else {
-          caseInfo['name'] = 'No case name given';
+          // No case name provided, so abort
+          return;
         }
 
         if (
@@ -168,7 +173,8 @@ async function readRuleData(ruleInfo: RuleFileInfo): Promise<RuleData> {
           ) {
             caseInfo['name'] = nameNode.initializer.text;
           } else {
-            caseInfo['name'] = 'No case name given';
+            // No case name provided, so abort
+            return;
           }
 
           if (
@@ -184,7 +190,57 @@ async function readRuleData(ruleInfo: RuleFileInfo): Promise<RuleData> {
           }
         }
 
-        // TODO: parse convertAnnotatedSourceToFailureCase() call
+        if (
+          ts.isCallExpression(caseNode) &&
+          ts.isIdentifier(caseNode.expression) &&
+          caseNode.expression.escapedText ===
+            'convertAnnotatedSourceToFailureCase'
+        ) {
+          // Found call to convertAnnotatedSourceToFailureCase()
+          const argsNode = caseNode.arguments[0];
+          if (!ts.isObjectLiteralExpression(argsNode)) {
+            // Arguments not as expected
+            return;
+          }
+
+          const nameNode = argsNode.properties.find(
+            (prop) =>
+              ts.isPropertyAssignment(prop) &&
+              ts.isIdentifier(prop.name) &&
+              prop.name.escapedText === 'description'
+          );
+          const codeNode = argsNode.properties.find(
+            (prop) =>
+              ts.isPropertyAssignment(prop) &&
+              ts.isIdentifier(prop.name) &&
+              prop.name.escapedText === 'annotatedSource'
+          );
+
+          const caseInfo: any = {};
+          if (
+            nameNode &&
+            ts.isPropertyAssignment(nameNode) &&
+            ts.isStringLiteral(nameNode.initializer)
+          ) {
+            caseInfo['name'] = nameNode.initializer.text;
+          } else {
+            // No name, so abort (shouldn't be reachable)
+            return;
+          }
+
+          if (
+            codeNode &&
+            ts.isPropertyAssignment(codeNode) &&
+            ts.isNoSubstitutionTemplateLiteral(codeNode.initializer)
+          ) {
+            caseInfo['code'] = codeNode.initializer.text;
+          } else {
+            // No code, so abort
+            return;
+          }
+
+          invalidCases.push(caseInfo);
+        }
       });
     }
     ts.forEachChild(node, findTestCases);
@@ -260,14 +316,21 @@ ${ruleData.description}
 
 ## Valid Usage
 
-${valid}
+${valid ? valid : 'No test cases'}
 
 ## Invalid Usage
 
-${invalid}
+${invalid ? invalid : 'No test cases'}
 `;
 
   writeFileSync(join(outputPath, `${ruleData.files.baseName}.md`), md);
+}
+
+async function generateDocsForRules(ruleFileInfo: RuleFileInfo[]) {
+  for (const rule of ruleFileInfo) {
+    const data = await readRuleData(rule);
+    generateDocumentation(data);
+  }
 }
 
 // -----
@@ -276,11 +339,11 @@ const rulesInfo = gatherRuleFileInfo(
   join(__dirname, '../eslint-rules/rules/angular')
 );
 
-for (const info of rulesInfo) {
-  readRuleData(info).then((result) => {
-    console.log(`----cases for ${result.name}:----`);
-    console.log('VALID:', result.validCases);
-    console.log('INVALID:', result.invalidCases);
-    generateDocumentation(result);
-  });
-}
+generateDocsForRules(rulesInfo).then(
+  () => {
+    console.log('Generated documentation');
+  },
+  (err) => {
+    console.error('Documentation generation failed', err);
+  }
+);
