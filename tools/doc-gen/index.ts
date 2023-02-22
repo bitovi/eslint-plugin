@@ -1,9 +1,14 @@
 import { join } from 'path';
-import { readFileSync, readdirSync, writeFileSync } from 'fs';
+import {
+  readFileSync,
+  readdirSync,
+  writeFileSync,
+  mkdirSync,
+  existsSync,
+} from 'fs';
 import ts from 'typescript';
 import type { TSESLint } from '@typescript-eslint/utils';
 
-// TODO: Add logic to ensure output directory exists
 // TODO: Add logic for cleaning output directory
 // TODO: Add configuration support
 
@@ -33,7 +38,7 @@ interface RuleData {
   // TODO: consider supporting schema rule config options
 }
 
-const outputPath = join(__dirname, '../../docs');
+const outputPath = join(__dirname, '../../docs/angular');
 
 /**
  * Gather file info for all rules in given directory
@@ -323,6 +328,9 @@ ${valid ? valid : 'No test cases'}
 ${invalid ? invalid : 'No test cases'}
 `;
 
+  if (!existsSync(outputPath)) {
+    mkdirSync(outputPath, { recursive: true });
+  }
   writeFileSync(join(outputPath, `${ruleData.files.baseName}.md`), md);
 }
 
