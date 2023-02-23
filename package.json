@@ -7,7 +7,8 @@
     "test": "nx test eslint-rules",
     "build": "nx build eslint-rules",
     "lint": "nx run-many --all --target=lint",
-    "format": "nx format:write --all ."
+    "format": "nx format:write --all .",
+    "docs": "ts-node tools/doc-gen"
   },
   "private": true,
   "dependencies": {

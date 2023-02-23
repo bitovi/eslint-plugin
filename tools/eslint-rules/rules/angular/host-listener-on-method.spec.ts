@@ -9,7 +9,7 @@ const ruleTester = new TSESLint.RuleTester({
 ruleTester.run(RULE_NAME, rule, {
   valid: [
     {
-      name: 'should be allowed on method defintions',
+      name: 'should be allowed on method definitions',
       code: `
       @Component()
       class MyComponent {
