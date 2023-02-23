@@ -329,10 +329,29 @@ ${invalid ? invalid : 'No test cases'}
   writeFileSync(join(outputPath, `${ruleData.files.baseName}.md`), md);
 }
 
-async function generateDocsForRules(ruleFileInfo: RuleFileInfo[]) {
+/**
+ * Generate documentation for rules described in an array of RuleFileInfo objects
+ * @param ruleFileInfo file info objects for rules to generate docs for
+ * @param verbose if true, show success/fail console message (default false)
+ */
+async function generateDocsForRules(
+  ruleFileInfo: RuleFileInfo[],
+  verbose = false
+) {
   for (const rule of ruleFileInfo) {
-    const data = await readRuleData(rule);
-    generateDocumentation(data);
+    try {
+      const data = await readRuleData(rule);
+      generateDocumentation(data);
+      if (verbose) {
+        console.log(
+          `✅ Generated documentation for \u001b[32m${data.name}\u001b[0m`
+        );
+      }
+    } catch (err) {
+      console.error(
+        `❌ Failed to generate documentation for rule in \u001b[31m${rule.baseName}.ts\u001b[0m`
+      );
+    }
   }
 }
 
@@ -375,11 +394,11 @@ const rulesInfo = gatherRuleFileInfo(
   join(__dirname, '../eslint-rules/rules/angular')
 );
 
-generateDocsForRules(rulesInfo).then(
+generateDocsForRules(rulesInfo, true).then(
   () => {
-    console.log('Generated documentation');
+    console.log('Generated documentation successfully!');
   },
   (err) => {
-    console.error('Documentation generation failed', err);
+    console.error('Documentation generation failed:', err);
   }
 );
