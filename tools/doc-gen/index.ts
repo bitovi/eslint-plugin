@@ -342,15 +342,15 @@ async function generateDocsForRules(
     try {
       const data = await readRuleData(rule);
       generateDocumentation(data);
-      if (verbose) {
+      verbose &&
         console.log(
           `✅ Generated documentation for \u001b[32m${data.name}\u001b[0m`
         );
-      }
     } catch (err) {
-      console.error(
-        `❌ Failed to generate documentation for rule in \u001b[31m${rule.baseName}.ts\u001b[0m`
-      );
+      verbose &&
+        console.error(
+          `❌ Failed to generate documentation for rule in \u001b[31m${rule.baseName}.ts\u001b[0m`
+        );
     }
   }
 }
