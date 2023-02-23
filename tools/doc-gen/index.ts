@@ -381,6 +381,7 @@ function normalizeCodeBlockIndentation(codeblock: string): string {
 function normalizeMarkdownText(text: string): string {
   return text
     .replace(/\*/g, '\\*')
+    .replace(/\_/g, '\\_')
     .replace(/#/g, '\\#')
     .split('\n')
     .map((l) => l.trim())
