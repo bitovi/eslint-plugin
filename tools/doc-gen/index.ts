@@ -44,7 +44,7 @@ const outputPath = join(__dirname, '../../docs/angular');
  * Gather file info for all rules in given directory
  * (Assumes filenames follow lower-snake-case.ts and lower-snake-case.spec.ts pattern)
  * @param sourcePath Directory to scrape for rules
- * @returns
+ * @returns array of RuleFileInfo objects, which indicate the path to the rule's code and spec files
  */
 function gatherRuleFileInfo(sourcePath: string): RuleFileInfo[] {
   const files = readdirSync(sourcePath).filter((name) =>
@@ -80,7 +80,7 @@ function gatherRuleFileInfo(sourcePath: string): RuleFileInfo[] {
 /**
  * Read rule and test data and return it so it can be used to generated documentation
  * @param ruleInfo
- * @returns
+ * @returns Rule Data object indicating valid and invalid cases, name, and file info
  */
 async function readRuleData(ruleInfo: RuleFileInfo): Promise<RuleData> {
   // Parse rule test file
@@ -121,13 +121,16 @@ async function readRuleData(ruleInfo: RuleFileInfo): Promise<RuleData> {
             prop.name.escapedText === 'code'
         );
 
-        const caseInfo: any = {};
+        const caseInfo: ValidCase = {
+          name: 'Unnamed',
+          code: '',
+        };
         if (
           nameNode &&
           ts.isPropertyAssignment(nameNode) &&
           ts.isStringLiteral(nameNode.initializer)
         ) {
-          caseInfo['name'] = nameNode.initializer.text;
+          caseInfo.name = nameNode.initializer.text;
         } else {
           // No case name provided, so abort
           return;
@@ -138,12 +141,13 @@ async function readRuleData(ruleInfo: RuleFileInfo): Promise<RuleData> {
           ts.isPropertyAssignment(codeNode) &&
           ts.isNoSubstitutionTemplateLiteral(codeNode.initializer)
         ) {
-          caseInfo['code'] = codeNode.initializer.text;
+          caseInfo.code = codeNode.initializer.text;
+        } else {
+          // No code provided, so abort
+          return;
         }
 
-        if (caseInfo['code']) {
-          validCases.push(caseInfo);
-        }
+        validCases.push(caseInfo);
       });
     }
     if (
@@ -170,13 +174,16 @@ async function readRuleData(ruleInfo: RuleFileInfo): Promise<RuleData> {
               prop.name.escapedText === 'code'
           );
 
-          const caseInfo: any = {};
+          const caseInfo: InvalidCase = {
+            name: 'Unnamed',
+            code: '',
+          };
           if (
             nameNode &&
             ts.isPropertyAssignment(nameNode) &&
             ts.isStringLiteral(nameNode.initializer)
           ) {
-            caseInfo['name'] = nameNode.initializer.text;
+            caseInfo.name = nameNode.initializer.text;
           } else {
             // No case name provided, so abort
             return;
@@ -187,10 +194,10 @@ async function readRuleData(ruleInfo: RuleFileInfo): Promise<RuleData> {
             ts.isPropertyAssignment(codeNode) &&
             ts.isNoSubstitutionTemplateLiteral(codeNode.initializer)
           ) {
-            caseInfo['code'] = codeNode.initializer.text;
+            caseInfo.code = codeNode.initializer.text;
           }
 
-          if (caseInfo['code']) {
+          if (caseInfo.code) {
             invalidCases.push(caseInfo);
           }
         }
@@ -223,13 +230,16 @@ async function readRuleData(ruleInfo: RuleFileInfo): Promise<RuleData> {
 
           // TODO: handle extracting fix and suggestion info
 
-          const caseInfo: any = {};
+          const caseInfo: InvalidCase = {
+            name: 'Unnamed',
+            code: '',
+          };
           if (
             nameNode &&
             ts.isPropertyAssignment(nameNode) &&
             ts.isStringLiteral(nameNode.initializer)
           ) {
-            caseInfo['name'] = nameNode.initializer.text;
+            caseInfo.name = nameNode.initializer.text;
           } else {
             // No name, so abort (shouldn't be reachable)
             return;
@@ -240,7 +250,7 @@ async function readRuleData(ruleInfo: RuleFileInfo): Promise<RuleData> {
             ts.isPropertyAssignment(codeNode) &&
             ts.isNoSubstitutionTemplateLiteral(codeNode.initializer)
           ) {
-            caseInfo['code'] = codeNode.initializer.text;
+            caseInfo.code = codeNode.initializer.text;
           } else {
             // No code, so abort
             return;
@@ -275,10 +285,7 @@ async function readRuleData(ruleInfo: RuleFileInfo): Promise<RuleData> {
 /**
  * Generate markdown documentation for given rule
  * (Goes to path stored in outputPath)
- * @param name rule display name
- * @param info file info, including base file name
- * @param validCases
- * @param invalidCases
+ * @param ruleData RuleData object to generate documentation from
  */
 function generateDocumentation(ruleData: RuleData) {
   const valid = ruleData.validCases.map((testCase) => {
@@ -333,7 +340,7 @@ async function generateDocsForRules(ruleFileInfo: RuleFileInfo[]) {
  * Remove leading indentation on code block while maintaining overall
  * indentation. Also cleans up leading or trailing blank line
  * @param codeblock Code block to clean up
- * @returns
+ * @returns cleaned-up code block string
  */
 function normalizeCodeBlockIndentation(codeblock: string): string {
   const indentSize = (line: string) => (line.match(/^[\s]+/) ?? [''])[0].length;
@@ -349,8 +356,8 @@ function normalizeCodeBlockIndentation(codeblock: string): string {
 /**
  * Escapes special markdown characters and normalizes indentation on non-markdown
  * text
- * @param text
- * @returns
+ * @param text text to clean up
+ * @returns cleaned up text
  */
 function normalizeMarkdownText(text: string): string {
   return text
@@ -364,6 +371,7 @@ function normalizeMarkdownText(text: string): string {
 // -----
 
 const rulesInfo = gatherRuleFileInfo(
+  // TODO: un-hardcode rules source path
   join(__dirname, '../eslint-rules/rules/angular')
 );
 
