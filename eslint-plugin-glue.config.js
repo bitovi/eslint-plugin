@@ -1,6 +1,6 @@
 module.exports = {
   bitovi: {
     dir: 'tools/eslint-rules',
-    tsconfig: 'tsconfig.json',
+    tsconfig: 'tools/eslint-rules/tsconfig.json',
   },
 };
