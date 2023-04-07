@@ -1,0 +1,12 @@
+{
+  "extends": ["../../../.eslintrc.json"],
+  "ignorePatterns": ["!**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "rules": {
+        "@bitovi/nx-glue/bitovi/angular/no-bindings-in-rxjs-stream": "error"
+      }
+    }
+  ]
+}
