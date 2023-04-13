@@ -7,8 +7,6 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-// import { Observable } from 'rxjs';
-import { Observable } from "rxjs/internal/Observable";
 
 @Component({
   selector: 'bitovi-root',
@@ -73,26 +71,26 @@ export class AppComponent implements OnChanges {
   //   };
   // }
 
+  // constructor() {
+  //   const moo$ = {} as Observable;
 
-  constructor() {
-    const moo$ = {} as Observable;
+  //   moo$.subscribe();
 
-    moo$.subscribe();
+  //   moo$.subscribe((value) => { console.log(value) });
+  // }
 
-    moo$.subscribe((value) => { console.log(value) });
-  }
-  
-  @Input() label!: string;
-  value!: string;
-  warning?: string;
+  // @Input() label!: string;
+  // value!: string;
+  // warning?: string;
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['label'] || changes['value']) {
-      if (this.label.length + this.value.length > 50) {
-        this.warning = "content must be less than 50 characters";
-      } else {
-        this.warning = "";
-      }
-    }
+    changes;
+    // if (changes['label'] || changes['value']) {
+    //   if (this.label.length + this.value.length > 50) {
+    //     this.warning = "content must be less than 50 characters";
+    //   } else {
+    //     this.warning = "";
+    //   }
+    // }
   }
 }

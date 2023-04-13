@@ -38,7 +38,8 @@ interface RuleData {
   // TODO: consider supporting schema rule config options
 }
 
-const outputPath = join(__dirname, '../../docs/angular');
+// const outputPath = join(__dirname, '../../docs/angular');
+const outputPath = join(__dirname, '../../docs/opinionated');
 
 /**
  * Gather file info for all rules in given directory
@@ -392,7 +393,8 @@ function normalizeMarkdownText(text: string): string {
 
 const rulesInfo = gatherRuleFileInfo(
   // TODO: un-hardcode rules source path
-  join(__dirname, '../eslint-rules/rules/angular')
+  // join(__dirname, '../eslint-rules/rules/angular')
+  join(__dirname, '../eslint-rules/rules/opinionated')
 );
 
 generateDocsForRules(rulesInfo, true).then(

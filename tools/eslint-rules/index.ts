@@ -1,4 +1,12 @@
 import {
+  RULE_NAME as noThisAsArgumentName,
+  rule as noThisAsArgument,
+} from './rules/opinionated/no-storing-this-reference';
+import {
+  RULE_NAME as noStatefulMethodsName,
+  rule as noStatefulMethods,
+} from './rules/opinionated/no-stateful-methods';
+import {
   RULE_NAME as noBindingsInRxjsStreamName,
   rule as noBindingsInRxjsStream,
 } from './rules/angular/no-bindings-in-rxjs-stream';
@@ -6,10 +14,6 @@ import {
   RULE_NAME as noSubscribeCallbackName,
   rule as noSubscribeCallback,
 } from './rules/angular/no-subscribe-callback';
-import {
-  RULE_NAME as myWorkspaceRuleName,
-  rule as myWorkspaceRule,
-} from './rules/my-workspace-rule';
 import {
   RULE_NAME as noReadInputInConstructorName,
   rule as noReadInputInConstructor,
@@ -88,8 +92,9 @@ module.exports = {
     [hostListenerOnMethodName]: hostListenerOnMethod,
     [noInputReadonlyName]: noInputReadonly,
     [noReadInputInConstructorName]: noReadInputInConstructor,
-    [myWorkspaceRuleName]: myWorkspaceRule,
     [noSubscribeCallbackName]: noSubscribeCallback,
     [noBindingsInRxjsStreamName]: noBindingsInRxjsStream,
+    [noStatefulMethodsName]: noStatefulMethods,
+    [noThisAsArgumentName]: noThisAsArgument,
   },
 };
