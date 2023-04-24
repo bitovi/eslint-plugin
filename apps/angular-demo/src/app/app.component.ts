@@ -11,20 +11,25 @@ import {
 } from '@angular/core';
 import { Observable } from 'rxjs';
 
-enum Moo {
-  cow = 'cow',
-  milk = 'milk',
-}
+// enum Moo {
+//   cow = 'cow',
+//   milk = 'milk',
+// }
 
-function getVal(): 'cow' {
-  return 'cow';
-}
+// function getVal(): 'cow' {
+//   return 'cow';
+// }
 
-const test = Moo.cow;
-const test2 = Moo['cow'];
-const val = 'cow';
-const test3 = Moo[val];
-const test4 = Moo[getVal()];
+// const test = Moo.cow;// okay
+// const test2 = Moo['cow'];// ugly, but okay
+// const val = 'cow';
+// const test3 = Moo[val];// logically okay, but nope
+// const test4 = Moo[getVal()];// for sure not okay
+
+// test
+// test2
+// test3
+// test4
 
 @Component({
   selector: 'bitovi-root',
@@ -126,7 +131,7 @@ export class AppComponent implements OnChanges {
   // // }
 
   @Input() label!: string;
-  value!: string;
+  @Input() value!: string;
   warning?: string;
 
   ngOnChanges(changes: SimpleChanges): void {

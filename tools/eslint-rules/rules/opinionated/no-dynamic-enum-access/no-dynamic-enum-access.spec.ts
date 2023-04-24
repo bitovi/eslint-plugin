@@ -1,8 +1,6 @@
 import { ESLintUtils } from '@typescript-eslint/utils';
 import { rule, RULE_NAME } from './no-dynamic-enum-access';
 
-// const ruleTester = new ESLintUtils.RuleTester({
-// parser: require.resolve('@typescript-eslint/parser'),
 const ruleTester = new ESLintUtils.RuleTester({
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -32,7 +30,19 @@ ruleTester.run(RULE_NAME, rule, {
     
       const moo = Moo['cow'];
       `,
-    }
+    },
+    {
+      name: 'Should allow dynamic keys for objects that are not enums',
+      code: `
+      const Moo = {
+        cow: 'cow'
+      };
+      
+      const val = 'cow';
+      const moo = Moo[val];
+      const moo = Moo[getVal()];
+      `,
+    },
   ],
   invalid: [
     {
@@ -57,29 +67,6 @@ ruleTester.run(RULE_NAME, rule, {
       };
     
       const moo = Moo[getKey()];
-      `,
-      errors: [
-        {
-          messageId: 'dynamicEnumAccess',
-        },
-      ],
-    },
-    {
-      code: `
-      enum Moo {
-        cow = 'cow',
-        milk = 'milk',
-      }
-      
-      function getVal(): 'cow' {
-        return 'cow';
-      }
-      
-      const test = Moo.cow;
-      const test2 = Moo['cow'];
-      const val = 'cow';
-      const test3 = Moo[val];
-      // const test4 = Moo[getVal()];
       `,
       errors: [
         {

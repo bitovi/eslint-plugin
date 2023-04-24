@@ -21,8 +21,6 @@ import {
   // TSESLint,
   // ASTUtils
 } from '@typescript-eslint/utils';
-// import * as ts from 'typescript';
-// import * as tsutils from 'tsutils';
 import { SymbolFlags } from 'typescript';
 
 // NOTE: The rule will be available in ESLint configs as "@nrwl/nx/workspace/no-dynamic-enum-access"
@@ -34,40 +32,41 @@ export const rule = ESLintUtils.RuleCreator(() => __filename)({
     fixable: 'code',
     type: 'problem',
     docs: {
-      description: ``,
+      description: `Enums should not be accessed dynamically and only only allow static keys`,
       recommended: 'error',
     },
     schema: [],
     messages: {
-      dynamicEnumAccess: 'Enums cannot be accessed dynamically'
+      dynamicEnumAccess: 'Enums cannot be accessed dynamically',
     },
   },
   defaultOptions: [],
   create(context) {
-    // type ParserServices<
-    //   T extends string = string,
-    //   V extends readonly unknown[] = readonly unknown[]
-    // > = ReturnType<typeof ESLintUtils.getParserServices<T, V>>;
-    // type Checker = ReturnType<ParserServices['program']['getTypeChecker']>;
-    const parserServices = ESLintUtils.getParserServices(context);
-    const checker = parserServices.program.getTypeChecker();
-
     return {
       [AST_NODE_TYPES.MemberExpression]: function (
         node: TSESTree.MemberExpression
       ) {
-        const object = node.object;
+        const { property, object } = node;
+
+        // Allow for literals or anything that isn't computed
+        if (property.type === AST_NODE_TYPES.Literal || !node.computed) {
+          return;
+        }
+
+        const parserServices = ESLintUtils.getParserServices(context);
+        const checker = parserServices.program.getTypeChecker();
+
         const tsObject = parserServices.esTreeNodeToTSNodeMap.get(object);
 
         const tsObjectType = checker.getTypeAtLocation(tsObject);
 
-        if (tsObjectType.symbol.flags !== SymbolFlags.RegularEnum && tsObjectType.symbol.flags !== SymbolFlags.ConstEnum) {
-          return;
-        }
+        const flags = tsObjectType.symbol?.flags;
 
-        const property = node.property;
-
-        if (property.type === AST_NODE_TYPES.Literal || !node.computed) {
+        // Check type of object to confirm enum
+        if (
+          flags !== SymbolFlags.RegularEnum &&
+          flags !== SymbolFlags.ConstEnum
+        ) {
           return;
         }
 
@@ -79,69 +78,3 @@ export const rule = ESLintUtils.RuleCreator(() => __filename)({
     };
   },
 });
-
-// type ParserServices<
-//   T extends string = string,
-//   V extends readonly unknown[] = readonly unknown[]
-// > = ReturnType<typeof ESLintUtils.getParserServices<T, V>>;
-// type Checker = ReturnType<ParserServices['program']['getTypeChecker']>;
-
-// function methodHasArgumentTypes<T extends string, V extends readonly unknown[]>(
-//   parserServices: ParserServices<T, V>,
-//   checker: Checker,
-//   expression: TSESTree.CallExpression,
-//   callerType: string,
-//   methodName: string,
-//   argTypes: string[]
-// ): boolean {
-//   const callee = expression.callee;
-
-//   if (callee.type !== AST_NODE_TYPES.MemberExpression) {
-//     return false;
-//   }
-
-//   const property = callee.property;
-
-//   if (!('name' in property)) {
-//     return false;
-//   }
-
-//   if (property.name !== methodName) {
-//     return false;
-//   }
-
-//   const tsObjectType = checker.getTypeAtLocation(
-//     parserServices.esTreeNodeToTSNodeMap.get(callee.object)
-//   );
-
-//   if (callerType !== tsObjectType.symbol.name) {
-//     return false;
-//   }
-
-//   return argTypes.every((argType, i) => {
-//     const arg = expression.arguments[i];
-//     const tsArg = parserServices.esTreeNodeToTSNodeMap.get(arg);
-//     const tsArgType = checker.getTypeAtLocation(tsArg);
-//     // Ignore any generic arguments for this type
-//     // So only check symbol and not use `Checker.typeToString`
-//     const _argType = tsArgType?.symbol?.name ?? '';
-
-//     return argType === _argType;
-//   });
-// }
-
-// function getTypeArguments<T extends string, V extends readonly unknown[]>(
-//   parserServices: ParserServices<T, V>,
-//   checker: Checker,
-//   node: TSESTree.Node
-// ): string[] {
-//   const tsNode = parserServices.esTreeNodeToTSNodeMap.get(node);
-//   const tsNodeType = checker.getTypeAtLocation(tsNode);
-//   if (!tsutils.isTypeReference(tsNodeType)) {
-//     return [];
-//   }
-
-//   return checker.getTypeArguments(tsNodeType).map((tsArg) => {
-//     return checker.typeToString(tsArg);
-//   });
-// }

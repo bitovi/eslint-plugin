@@ -5,13 +5,17 @@
     {
       "parser": "@typescript-eslint/parser",
       "parserOptions": {
-        "project": "/Users/markthompson/Documents/github/bitovi/eslint-plugin/apps/angular-demo/tsconfig.app.json",
+        "project": ["./apps/angular-demo/tsconfig.app.json"],
         "sourceType": "module"
       },
       "files": ["*.component.ts"],
       "rules": {
         "glue/bitovi/opinionated/no-dynamic-enum-access": "error"
-      }
+      },
+      "extends": [
+        "plugin:@nrwl/nx/angular",
+        "plugin:@angular-eslint/template/process-inline-templates"
+      ]
     },
     {
       "files": ["*.ts"],
