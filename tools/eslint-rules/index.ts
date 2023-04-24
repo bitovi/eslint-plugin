@@ -1,4 +1,7 @@
-import { RULE_NAME as jTestName, rule as jTest } from './rules/j-test';
+import {
+  RULE_NAME as noDynamicEnumAccessName,
+  rule as noDynamicEnumAccess,
+} from './rules/opinionated/no-dynamic-enum-access/no-dynamic-enum-access';
 import {
   RULE_NAME as requireOnPushChangeDetectionAsDefaultName,
   rule as requireOnPushChangeDetectionAsDefault,
@@ -106,6 +109,7 @@ module.exports = {
     [requireOnPushChangeDetectionAsDefaultName]:
       requireOnPushChangeDetectionAsDefault,
     // [jTestName]: jTest,
+    [noDynamicEnumAccessName]: noDynamicEnumAccess,
   },
   processors: {
     ['json']: processor,
