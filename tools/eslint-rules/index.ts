@@ -1,3 +1,8 @@
+import { RULE_NAME as jTestName, rule as jTest } from './rules/j-test';
+import {
+  RULE_NAME as requireOnPushChangeDetectionAsDefaultName,
+  rule as requireOnPushChangeDetectionAsDefault,
+} from './rules/opinionated/require-on-push-change-detection-as-default';
 import {
   RULE_NAME as noThisAsArgumentName,
   rule as noThisAsArgument,
@@ -54,6 +59,8 @@ import {
   RULE_NAME as hostListenerMouseEventsHaveKeyEventsName,
   rule as hostListenerMouseEventsHaveKeyEvents,
 } from './rules/angular/host-listener-mouse-events-have-key-events';
+import { processor } from './utilities/json-processor';
+
 /**
  * Import your custom workspace rules at the top of this file.
  *
@@ -96,5 +103,11 @@ module.exports = {
     [noBindingsInRxjsStreamName]: noBindingsInRxjsStream,
     [noStatefulMethodsName]: noStatefulMethods,
     [noThisAsArgumentName]: noThisAsArgument,
+    [requireOnPushChangeDetectionAsDefaultName]:
+      requireOnPushChangeDetectionAsDefault,
+    // [jTestName]: jTest,
+  },
+  processors: {
+    ['json']: processor,
   },
 };

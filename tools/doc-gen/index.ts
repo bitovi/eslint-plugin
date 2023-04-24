@@ -38,8 +38,10 @@ interface RuleData {
   // TODO: consider supporting schema rule config options
 }
 
-// const outputPath = join(__dirname, '../../docs/angular');
-const outputPath = join(__dirname, '../../docs/opinionated');
+const outputPaths = [
+  join(__dirname, '../../docs/angular'),
+  join(__dirname, '../../docs/opinionated'),
+];
 
 /**
  * Gather file info for all rules in given directory
@@ -324,10 +326,12 @@ ${valid ? valid : 'No test cases'}
 ${invalid ? invalid : 'No test cases'}
 `;
 
-  if (!existsSync(outputPath)) {
-    mkdirSync(outputPath, { recursive: true });
-  }
-  writeFileSync(join(outputPath, `${ruleData.files.baseName}.md`), md);
+  outputPaths.forEach((outputPath) => {
+    if (!existsSync(outputPath)) {
+      mkdirSync(outputPath, { recursive: true });
+    }
+    writeFileSync(join(outputPath, `${ruleData.files.baseName}.md`), md);
+  });
 }
 
 /**

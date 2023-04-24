@@ -118,5 +118,20 @@ ruleTester.run(RULE_NAME, rule, {
       `,
       messageId: 'moo',
     }),
+    convertAnnotatedSourceToFailureCase({
+      description: 'Should report if setting property in subscribe callback',
+      annotatedSource: `
+      class Moo {
+        value!: string;
+        constructor() {
+          new Observable<string>().subscribe((value: string) => {
+            this.value = value;
+            ~~~~~~~~~~~~~~~~~~
+          });
+        }
+      }
+      `,
+      messageId: 'moo',
+    }),
   ],
 });

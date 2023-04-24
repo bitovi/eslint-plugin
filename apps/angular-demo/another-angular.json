@@ -1,0 +1,10 @@
+{
+  "projects": {
+    "moo": {
+      "cow": "milk",
+      "schematics": {
+        "carrot": "cake"
+      }
+    }
+  }
+}

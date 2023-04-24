@@ -1,3 +1,4 @@
 {
-  "jestrunner.configPath": "tools/eslint-rules/jest.config.ts"
+  "jestrunner.configPath": "tools/eslint-rules/jest.config.ts",
+  "eslint.validate": ["javascript", "javascriptreact", "json"]
 }

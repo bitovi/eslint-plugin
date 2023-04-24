@@ -5,15 +5,22 @@
     {
       "files": ["*.ts"],
       "rules": {
-        "@bitovi/nx-glue/bitovi/angular/host-listener-mouse-events-have-key-events": "error",
-        "@bitovi/nx-glue/bitovi/angular/host-listener-click-events-have-key-events": "error",
-        "@bitovi/nx-glue/bitovi/angular/no-rxjs-internal-import": "error",
-        "@bitovi/nx-glue/bitovi/angular/no-entry-components": "error",
-        "@bitovi/nx-glue/bitovi/angular/seo-friendly-route-path": "error",
-        "@bitovi/nx-glue/bitovi/angular/on-changes-use-input-bind": "error",
-        "@bitovi/nx-glue/bitovi/angular/event-emitter-has-output": "warn",
-        "@bitovi/nx-glue/bitovi/angular/no-input-readonly": "error",
-        "@bitovi/nx-glue/bitovi/angular/no-read-input-in-constructor": "error",
+        "glue/bitovi/opinionated/no-stateful-methods": [
+          "error",
+          {
+            "exceptions": ["ngOnInit"]
+          }
+        ],
+        "glue/bitovi/opinionated/no-storing-this-reference": "error",
+        "glue/bitovi/angular/host-listener-mouse-events-have-key-events": "error",
+        "glue/bitovi/angular/host-listener-click-events-have-key-events": "error",
+        "glue/bitovi/angular/no-rxjs-internal-import": "error",
+        "glue/bitovi/angular/no-entry-components": "error",
+        "glue/bitovi/angular/seo-friendly-route-path": "error",
+        "glue/bitovi/angular/on-changes-use-input-bind": "error",
+        "glue/bitovi/angular/event-emitter-has-output": "warn",
+        "glue/bitovi/angular/no-input-readonly": "error",
+        "glue/bitovi/angular/no-read-input-in-constructor": "error",
         "@angular-eslint/directive-selector": [
           "error",
           {
@@ -40,6 +47,13 @@
       "files": ["*.html"],
       "extends": ["plugin:@nrwl/nx/angular-template"],
       "rules": {}
+    },
+    {
+      "files": ["*.json"],
+      "processor": "glue/json",
+      "rules": {
+        "glue/bitovi/opinionated/require-on-push-change-detection-as-default": "error"
+      }
     }
   ]
 }

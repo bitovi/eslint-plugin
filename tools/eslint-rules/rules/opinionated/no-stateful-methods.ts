@@ -66,6 +66,7 @@ export const rule = ESLintUtils.RuleCreator(() => __filename)({
         const declaration = searchNestedParent(node, (node: TSESTree.Node) => {
           if (
             node.type === AST_NODE_TYPES.MethodDefinition ||
+            node.type === AST_NODE_TYPES.ArrowFunctionExpression ||
             node.type === AST_NODE_TYPES.FunctionDeclaration
           ) {
             return node;
@@ -76,6 +77,14 @@ export const rule = ESLintUtils.RuleCreator(() => __filename)({
           !declaration ||
           declaration.type === AST_NODE_TYPES.FunctionDeclaration
         ) {
+          return;
+        }
+
+        if (declaration.type === AST_NODE_TYPES.ArrowFunctionExpression) {
+          context.report({
+            node,
+            messageId: 'moo',
+          });
           return;
         }
 
