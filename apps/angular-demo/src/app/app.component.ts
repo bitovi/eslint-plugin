@@ -16,10 +16,15 @@ enum Moo {
   milk = 'milk',
 }
 
+function getVal(): 'cow' {
+  return 'cow';
+}
+
 const test = Moo.cow;
-const test2 = Moo.milk;
+const test2 = Moo['cow'];
 const val = 'cow';
 const test3 = Moo[val];
+const test4 = Moo[getVal()];
 
 @Component({
   selector: 'bitovi-root',
@@ -121,7 +126,7 @@ export class AppComponent implements OnChanges {
   // // }
 
   @Input() label!: string;
-  @Input() value!: string;
+  value!: string;
   warning?: string;
 
   ngOnChanges(changes: SimpleChanges): void {

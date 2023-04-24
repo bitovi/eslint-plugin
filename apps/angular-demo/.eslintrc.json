@@ -3,6 +3,17 @@
   "ignorePatterns": ["!**/*"],
   "overrides": [
     {
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "project": "/Users/markthompson/Documents/github/bitovi/eslint-plugin/apps/angular-demo/tsconfig.app.json",
+        "sourceType": "module"
+      },
+      "files": ["*.component.ts"],
+      "rules": {
+        "glue/bitovi/opinionated/no-dynamic-enum-access": "error"
+      }
+    },
+    {
       "files": ["*.ts"],
       "rules": {
         "glue/bitovi/opinionated/no-stateful-methods": [

@@ -14,24 +14,134 @@
  * https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin/src/rules
  */
 
-import { ESLintUtils } from '@typescript-eslint/utils';
+import {
+  ESLintUtils,
+  AST_NODE_TYPES,
+  TSESTree,
+  // TSESLint,
+  // ASTUtils
+} from '@typescript-eslint/utils';
+// import * as ts from 'typescript';
+// import * as tsutils from 'tsutils';
+import { SymbolFlags } from 'typescript';
 
 // NOTE: The rule will be available in ESLint configs as "@nrwl/nx/workspace/no-dynamic-enum-access"
-export const RULE_NAME = 'no-dynamic-enum-access';
+export const RULE_NAME = 'opinionated/no-dynamic-enum-access';
 
 export const rule = ESLintUtils.RuleCreator(() => __filename)({
   name: RULE_NAME,
   meta: {
+    fixable: 'code',
     type: 'problem',
     docs: {
       description: ``,
       recommended: 'error',
     },
     schema: [],
-    messages: {},
+    messages: {
+      dynamicEnumAccess: 'Enums cannot be accessed dynamically'
+    },
   },
   defaultOptions: [],
   create(context) {
-    return {};
+    // type ParserServices<
+    //   T extends string = string,
+    //   V extends readonly unknown[] = readonly unknown[]
+    // > = ReturnType<typeof ESLintUtils.getParserServices<T, V>>;
+    // type Checker = ReturnType<ParserServices['program']['getTypeChecker']>;
+    const parserServices = ESLintUtils.getParserServices(context);
+    const checker = parserServices.program.getTypeChecker();
+
+    return {
+      [AST_NODE_TYPES.MemberExpression]: function (
+        node: TSESTree.MemberExpression
+      ) {
+        const object = node.object;
+        const tsObject = parserServices.esTreeNodeToTSNodeMap.get(object);
+
+        const tsObjectType = checker.getTypeAtLocation(tsObject);
+
+        if (tsObjectType.symbol.flags !== SymbolFlags.RegularEnum && tsObjectType.symbol.flags !== SymbolFlags.ConstEnum) {
+          return;
+        }
+
+        const property = node.property;
+
+        if (property.type === AST_NODE_TYPES.Literal || !node.computed) {
+          return;
+        }
+
+        context.report({
+          messageId: 'dynamicEnumAccess',
+          node: property,
+        });
+      },
+    };
   },
 });
+
+// type ParserServices<
+//   T extends string = string,
+//   V extends readonly unknown[] = readonly unknown[]
+// > = ReturnType<typeof ESLintUtils.getParserServices<T, V>>;
+// type Checker = ReturnType<ParserServices['program']['getTypeChecker']>;
+
+// function methodHasArgumentTypes<T extends string, V extends readonly unknown[]>(
+//   parserServices: ParserServices<T, V>,
+//   checker: Checker,
+//   expression: TSESTree.CallExpression,
+//   callerType: string,
+//   methodName: string,
+//   argTypes: string[]
+// ): boolean {
+//   const callee = expression.callee;
+
+//   if (callee.type !== AST_NODE_TYPES.MemberExpression) {
+//     return false;
+//   }
+
+//   const property = callee.property;
+
+//   if (!('name' in property)) {
+//     return false;
+//   }
+
+//   if (property.name !== methodName) {
+//     return false;
+//   }
+
+//   const tsObjectType = checker.getTypeAtLocation(
+//     parserServices.esTreeNodeToTSNodeMap.get(callee.object)
+//   );
+
+//   if (callerType !== tsObjectType.symbol.name) {
+//     return false;
+//   }
+
+//   return argTypes.every((argType, i) => {
+//     const arg = expression.arguments[i];
+//     const tsArg = parserServices.esTreeNodeToTSNodeMap.get(arg);
+//     const tsArgType = checker.getTypeAtLocation(tsArg);
+//     // Ignore any generic arguments for this type
+//     // So only check symbol and not use `Checker.typeToString`
+//     const _argType = tsArgType?.symbol?.name ?? '';
+
+//     return argType === _argType;
+//   });
+// }
+
+// function getTypeArguments<T extends string, V extends readonly unknown[]>(
+//   parserServices: ParserServices<T, V>,
+//   checker: Checker,
+//   node: TSESTree.Node
+// ): string[] {
+//   const tsNode = parserServices.esTreeNodeToTSNodeMap.get(node);
+//   const tsNodeType = checker.getTypeAtLocation(tsNode);
+//   if (!tsutils.isTypeReference(tsNodeType)) {
+//     return [];
+//   }
+
+//   return checker.getTypeArguments(tsNodeType).map((tsArg) => {
+//     return checker.typeToString(tsArg);
+//   });
+// }

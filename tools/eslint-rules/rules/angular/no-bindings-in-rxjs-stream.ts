@@ -19,7 +19,7 @@ import {
   ESLintUtils,
   TSESTree,
   AST_NODE_TYPES,
-  TSESLint
+  // TSESLint
 } from '@typescript-eslint/utils';
 
 const message = `Setting Component members within the callback of a subscription is not suggested.

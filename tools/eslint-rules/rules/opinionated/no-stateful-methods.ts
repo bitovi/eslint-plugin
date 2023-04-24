@@ -18,7 +18,7 @@ import {
   ESLintUtils,
   AST_NODE_TYPES,
   TSESTree,
-  TSESLint,
+  // TSESLint,
 } from '@typescript-eslint/utils';
 
 // NOTE: The rule will be available in ESLint configs as "@nrwl/nx/workspace/no-stateful-methods"
