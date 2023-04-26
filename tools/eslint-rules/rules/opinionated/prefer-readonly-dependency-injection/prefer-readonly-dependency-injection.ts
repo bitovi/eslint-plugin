@@ -24,7 +24,7 @@ import { isInDecoratedClass } from '../../../utilities/node/is-in-decorated-clas
 export const RULE_NAME = 'opininonated/prefer-readonly-dependency-injection';
 
 export type Options = [];
-export type MessageIds = 'placeholder';
+export type MessageIds = 'missingReadonly';
 
 export const rule = ESLintUtils.RuleCreator(() => __filename)<
   Options,
@@ -40,7 +40,7 @@ export const rule = ESLintUtils.RuleCreator(() => __filename)<
     },
     schema: [],
     messages: {
-      placeholder: `Unexpected missing readonly keyword missing for dependency injections`,
+      missingReadonly: `Unexpected missing readonly keyword missing for dependency injections`,
     },
   },
   defaultOptions: [],
@@ -75,7 +75,7 @@ export const rule = ESLintUtils.RuleCreator(() => __filename)<
 
               context.report({
                 node: param,
-                messageId: 'placeholder',
+                messageId: 'missingReadonly',
                 fix(fixer) {
                   return fixer.insertTextBefore(identifier, 'readonly ');
                 },
@@ -113,7 +113,7 @@ export const rule = ESLintUtils.RuleCreator(() => __filename)<
 
         context.report({
           node,
-          messageId: 'placeholder',
+          messageId: 'missingReadonly',
           fix(fixer) {
             return fixer.insertTextBefore(identifier, `readonly `);
           },

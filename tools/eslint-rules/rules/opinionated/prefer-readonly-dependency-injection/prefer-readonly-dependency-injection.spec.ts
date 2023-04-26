@@ -13,7 +13,7 @@ const ruleTester = new ESLintUtils.RuleTester({
 ruleTester.run<MessageIds, unknown[]>(RULE_NAME, rule, {
   valid: [
     {
-      name: 'should pass for true',
+      name: "Should pass for any class that doesn't use Angular's decorators",
       code: `
       @MyCustomDecorator()
       class MyClass {
@@ -22,7 +22,7 @@ ruleTester.run<MessageIds, unknown[]>(RULE_NAME, rule, {
       `,
     },
     {
-      name: 'should pass for true 2',
+      name: 'Should pass for dependency injection that uses readonly keyword that provides accessibility keyword',
       code: `
       @Directive()
       class MyDirective {
@@ -31,7 +31,7 @@ ruleTester.run<MessageIds, unknown[]>(RULE_NAME, rule, {
       `,
     },
     {
-      name: 'should pass for true 3',
+      name: 'Should pass for dependency injection that uses readonly keyword that uses Inject decorator',
       code: `
       @Component()
       class MyService {
@@ -40,7 +40,7 @@ ruleTester.run<MessageIds, unknown[]>(RULE_NAME, rule, {
       `,
     },
     {
-      name: 'should pass for true 4',
+      name: 'Should pass for any property that uses readonly keyword',
       code: `
       @Injectable()
       class MyService {
@@ -51,7 +51,8 @@ ruleTester.run<MessageIds, unknown[]>(RULE_NAME, rule, {
   ],
   invalid: [
     convertAnnotatedSourceToFailureCase({
-      description: 'should fail for false',
+      description:
+        'Should fail for dependency injection that does NOT use readonly keyword',
       annotatedSource: `
       @Component()
       class MyComponent {
@@ -59,7 +60,7 @@ ruleTester.run<MessageIds, unknown[]>(RULE_NAME, rule, {
                     ~~~~~~~~~~~~~~~~~~~~~~~~
       }
       `,
-      messageId: 'placeholder',
+      messageId: 'missingReadonly',
       annotatedOutput: `
       @Component()
       class MyComponent {
@@ -69,7 +70,8 @@ ruleTester.run<MessageIds, unknown[]>(RULE_NAME, rule, {
       `,
     }),
     convertAnnotatedSourceToFailureCase({
-      description: 'should fail for false 2',
+      description:
+        'Should fail for any property that references dependency injection that does NOT use readonly keyword',
       annotatedSource: `
       @Pipe()
       class MyPipe {
@@ -77,7 +79,7 @@ ruleTester.run<MessageIds, unknown[]>(RULE_NAME, rule, {
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       }
       `,
-      messageId: 'placeholder',
+      messageId: 'missingReadonly',
       annotatedOutput: `
       @Pipe()
       class MyPipe {
