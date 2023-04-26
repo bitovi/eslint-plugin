@@ -17,7 +17,7 @@ const ruleTester = new ESLintUtils.RuleTester({
 ruleTester.run<MessageIds, unknown[]>(RULE_NAME, rule, {
   valid: [
     {
-      name: 'should pass for true',
+      name: 'Should pass for properties with readonly property',
       code: `
       import { Observable } from 'rxjs';
 
@@ -27,7 +27,17 @@ ruleTester.run<MessageIds, unknown[]>(RULE_NAME, rule, {
       `,
     },
     {
-      name: 'should pass for true',
+      name: 'Should pass for properties that do NOT reference an Observable',
+      code: `
+      import { Observable } from 'rxjs';
+
+      class MyClass {
+        moo = 'value';
+      }
+      `,
+    },
+    {
+      name: 'Should pass for readonly properties with name that ends with $',
       code: `
       import { Observable } from 'rxjs';
 
@@ -39,7 +49,8 @@ ruleTester.run<MessageIds, unknown[]>(RULE_NAME, rule, {
   ],
   invalid: [
     convertAnnotatedSourceToFailureCase({
-      description: 'should fail for false',
+      description:
+        'Should report for non-readonly properties that reference an Observable',
       annotatedSource: `
       import { Observable } from 'rxjs';
 
@@ -59,7 +70,8 @@ ruleTester.run<MessageIds, unknown[]>(RULE_NAME, rule, {
       `,
     }),
     convertAnnotatedSourceToFailureCase({
-      description: 'should fail for false 2',
+      description:
+        'Should report for non-readonly properties that reference an rxjs classes that extend Observable',
       annotatedSource: `
       import { Subject } from 'rxjs';
 
@@ -74,6 +86,27 @@ ruleTester.run<MessageIds, unknown[]>(RULE_NAME, rule, {
 
       class MyClass {
         readonly moo = new Subject<boolean>();
+        
+      }
+      `,
+    }),
+    convertAnnotatedSourceToFailureCase({
+      description:
+        'Should report for non-readonly properties with name that ends with $',
+      annotatedSource: `
+      import { Subject } from 'rxjs';
+
+      class MyClass {
+        moo$ = new MyObs();
+        ~~~~~~~~~~~~~~~~~~~
+      }
+      `,
+      messageId: 'missingReadonly',
+      annotatedOutput: `
+      import { Subject } from 'rxjs';
+
+      class MyClass {
+        readonly moo$ = new MyObs();
         
       }
       `,

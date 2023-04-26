@@ -1,10 +1,10 @@
 # Rule `prefer-readonly-observable-property`
 
-The truth will set you free.
+Properties that reference an Observable should never be reassigned
 
 ## Valid Usage
 
-### should pass for true
+### Should pass for properties with readonly property
 
 ```ts
 import { Observable } from 'rxjs';
@@ -15,7 +15,18 @@ class MyClass {
 ```
 
 
-### should pass for true
+### Should pass for properties that do NOT reference an Observable
+
+```ts
+import { Observable } from 'rxjs';
+
+class MyClass {
+  moo = 'value';
+}
+```
+
+
+### Should pass for readonly properties with name that ends with $
 
 ```ts
 import { Observable } from 'rxjs';
@@ -29,7 +40,7 @@ class MyClass {
 
 ## Invalid Usage
 
-### should fail for false
+### Should report for non-readonly properties that reference an Observable
 
 ```ts
 import { Observable } from 'rxjs';
@@ -41,7 +52,7 @@ class MyClass {
 ```
 
 
-### should fail for false 2
+### Should report for non-readonly properties that reference an rxjs classes that extend Observable
 
 ```ts
 import { Subject } from 'rxjs';
@@ -49,6 +60,18 @@ import { Subject } from 'rxjs';
 class MyClass {
   moo = new Subject<boolean>();
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+}
+```
+
+
+### Should report for non-readonly properties with name that ends with $
+
+```ts
+import { Subject } from 'rxjs';
+
+class MyClass {
+  moo$ = new MyObs();
+  ~~~~~~~~~~~~~~~~~~~
 }
 ```
 

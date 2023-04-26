@@ -18,7 +18,7 @@ import {
   ESLintUtils,
   TSESTree,
   AST_NODE_TYPES,
-  ASTUtils,
+  TSESLint,
 } from '@typescript-eslint/utils';
 
 export const RULE_NAME = 'prefer-readonly-observable-property';
@@ -35,12 +35,12 @@ export const rule = ESLintUtils.RuleCreator(() => __filename)<
     type: 'problem',
     fixable: 'code',
     docs: {
-      description: `The truth will set you free.`,
+      description: `Properties that reference an Observable should never be reassigned`,
       recommended: 'error',
     },
     schema: [],
     messages: {
-      missingReadonly: `This example requires no values to be 'false'`,
+      missingReadonly: `Unexpected missing readonly keyword missing for property`,
     },
   },
   defaultOptions: [],
@@ -59,38 +59,50 @@ export const rule = ESLintUtils.RuleCreator(() => __filename)<
           return;
         }
 
-        const parserServices = ESLintUtils.getParserServices(context);
-        const checker = parserServices.program.getTypeChecker();
-
-        const tsIdentifier =
-          parserServices.esTreeNodeToTSNodeMap.get(identifier);
-
-        const tsIdentifierType = checker.getTypeAtLocation(tsIdentifier);
-
-        const symbol = tsIdentifierType.symbol?.name;
-
-        if (
-          symbol &&
-          [
-            'Observable',
-            'Subject',
-            'AsyncSubject',
-            'BehaviorSubject',
-            'ReplaySubject',
-            'AnonymousSubject',
-            'HotObservable',
-            'Connectable',
-          ].includes(symbol)
-        ) {
-          context.report({
-            node,
-            messageId: 'missingReadonly',
-            fix(fixer) {
-              return fixer.insertTextBefore(identifier, `readonly `);
-            },
-          });
+        if (!isObservable(context, identifier)) {
+          return;
         }
+
+        context.report({
+          node,
+          messageId: 'missingReadonly',
+          fix(fixer) {
+            return fixer.insertTextBefore(identifier, `readonly `);
+          },
+        });
       },
     };
   },
 });
+
+function isObservable<T extends string, V extends readonly unknown[]>(
+  context: Readonly<TSESLint.RuleContext<T, V>>,
+  identifier: TSESTree.Identifier
+): boolean {
+  if (identifier.name.endsWith('$')) {
+    return true;
+  }
+
+  const parserServices = ESLintUtils.getParserServices(context);
+  const checker = parserServices.program.getTypeChecker();
+
+  const tsIdentifier = parserServices.esTreeNodeToTSNodeMap.get(identifier);
+
+  const tsIdentifierType = checker.getTypeAtLocation(tsIdentifier);
+
+  const symbol = tsIdentifierType.symbol?.name;
+
+  return (
+    !!symbol &&
+    [
+      'Observable',
+      'Subject',
+      'AsyncSubject',
+      'BehaviorSubject',
+      'ReplaySubject',
+      'AnonymousSubject',
+      'HotObservable',
+      'Connectable',
+    ].includes(symbol)
+  );
+}
