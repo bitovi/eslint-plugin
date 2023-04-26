@@ -1,4 +1,8 @@
 import {
+  RULE_NAME as preferReadonlyObservablePropertyName,
+  rule as preferReadonlyObservableProperty,
+} from './rules/opinionated/prefer-readonly-observable-property/prefer-readonly-observable-property';
+import {
   RULE_NAME as preferReadonlyDependencyInjectionName,
   rule as preferReadonlyDependencyInjection,
 } from './rules/opinionated/prefer-readonly-dependency-injection/prefer-readonly-dependency-injection';
@@ -114,6 +118,7 @@ module.exports = {
       requireOnPushChangeDetectionAsDefault,
     [noDynamicEnumAccessName]: noDynamicEnumAccess,
     [preferReadonlyDependencyInjectionName]: preferReadonlyDependencyInjection,
+    [preferReadonlyObservablePropertyName]: preferReadonlyObservableProperty,
   },
   processors: {
     ['json']: processor,
