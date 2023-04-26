@@ -15,7 +15,7 @@ ruleTester.run(RULE_NAME, rule, {
     `
     const moo = {};
     moo.subscribe();
-    `
+    `,
   ],
   invalid: [
     convertAnnotatedSourceToFailureCase({
@@ -27,6 +27,10 @@ ruleTester.run(RULE_NAME, rule, {
                     ~~~~~~~~~~~~~~~
     `,
       messageId: 'subscribeCallback',
+      data: {
+        prop: 'moo',
+        callback: '() => {/*...*/}',
+      },
     }),
   ],
 });

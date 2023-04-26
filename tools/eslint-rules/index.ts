@@ -1,4 +1,8 @@
 import {
+  RULE_NAME as preferReadonlyDependencyInjectionName,
+  rule as preferReadonlyDependencyInjection,
+} from './rules/opinionated/prefer-readonly-dependency-injection/prefer-readonly-dependency-injection';
+import {
   RULE_NAME as noDynamicEnumAccessName,
   rule as noDynamicEnumAccess,
 } from './rules/opinionated/no-dynamic-enum-access/no-dynamic-enum-access';
@@ -108,8 +112,8 @@ module.exports = {
     [noThisAsArgumentName]: noThisAsArgument,
     [requireOnPushChangeDetectionAsDefaultName]:
       requireOnPushChangeDetectionAsDefault,
-    // [jTestName]: jTest,
     [noDynamicEnumAccessName]: noDynamicEnumAccess,
+    [preferReadonlyDependencyInjectionName]: preferReadonlyDependencyInjection,
   },
   processors: {
     ['json']: processor,

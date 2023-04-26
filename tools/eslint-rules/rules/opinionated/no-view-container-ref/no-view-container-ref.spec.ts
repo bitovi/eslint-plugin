@@ -1,8 +1,6 @@
 import { ESLintUtils } from '@typescript-eslint/utils';
 import { rule, RULE_NAME } from './no-view-container-ref';
 
-// const ruleTester = new ESLintUtils.RuleTester({
-// parser: require.resolve('@typescript-eslint/parser'),
 const ruleTester = new ESLintUtils.RuleTester({
   parser: '@typescript-eslint/parser',
   parserOptions: {

@@ -19,7 +19,7 @@ ruleTester.run(RULE_NAME, rule, {
     `
     const moo = {};
     moo.subscribe((value) => {console.log(value)});
-    `
+    `,
   ],
   invalid: [
     convertAnnotatedSourceToFailureCase({
@@ -31,6 +31,9 @@ ruleTester.run(RULE_NAME, rule, {
                                  ~~~~~~~~~~~~~~~~~~
     `,
       messageId: 'bindedToComponent',
+      data: {
+        prop: 'moo',
+      },
     }),
   ],
 });

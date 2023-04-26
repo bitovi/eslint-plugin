@@ -37,6 +37,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnChanges {
+  readonly moo = inject('token');
   // value!: string;
   // constructor() {
   //   const moo = {

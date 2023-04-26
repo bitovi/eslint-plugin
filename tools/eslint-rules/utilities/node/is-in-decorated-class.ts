@@ -13,12 +13,15 @@ export function isInDecoratedClass(
   node: TSESTree.Node,
   decorators: string[]
 ): boolean {
-  let targetNode = node.parent;
-  while (targetNode) {
-    if (targetNode.type === AST_NODE_TYPES.ClassDeclaration) {
-      return hasSomeDecoratorWithName(targetNode, decorators);
-    }
-    targetNode = targetNode.parent;
+  const parent = node.parent;
+
+  if (!parent) {
+    return false;
   }
-  return false;
+
+  if (parent.type === AST_NODE_TYPES.ClassDeclaration) {
+    return hasSomeDecoratorWithName(parent, decorators);
+  }
+
+  return isInDecoratedClass(parent, decorators);
 }
