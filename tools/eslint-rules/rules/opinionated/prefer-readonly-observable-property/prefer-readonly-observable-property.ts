@@ -21,7 +21,7 @@ import {
   TSESLint,
 } from '@typescript-eslint/utils';
 
-export const RULE_NAME = 'prefer-readonly-observable-property';
+export const RULE_NAME = 'opinionated/prefer-readonly-observable-property';
 
 export type Options = [];
 export type MessageIds = 'missingReadonly';

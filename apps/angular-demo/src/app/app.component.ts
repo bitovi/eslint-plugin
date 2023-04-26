@@ -1,4 +1,5 @@
 /* eslint-disable glue/bitovi/opinionated/no-stateful-methods */
+import { Token } from '@angular/compiler';
 import {
   Component,
   EventEmitter,
@@ -8,8 +9,10 @@ import {
   OnInit,
   Output,
   SimpleChanges,
+  inject,
 } from '@angular/core';
 import { Observable } from 'rxjs';
+import { getObs } from './my-observable';
 
 // enum Moo {
 //   cow = 'cow',
@@ -37,7 +40,6 @@ import { Observable } from 'rxjs';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnChanges {
-  readonly moo = inject('token');
   // value!: string;
   // constructor() {
   //   const moo = {

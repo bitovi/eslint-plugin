@@ -10,7 +10,8 @@
       },
       "files": ["*.component.ts"],
       "rules": {
-        "glue/bitovi/opinionated/no-dynamic-enum-access": "error"
+        "glue/bitovi/opinionated/no-dynamic-enum-access": "error",
+        "glue/bitovi/opinionated/prefer-readonly-observable-property": "error"
       },
       "extends": [
         "plugin:@nrwl/nx/angular",
