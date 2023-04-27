@@ -70,6 +70,7 @@
       "processor": "@angular-eslint/template/extract-inline-html",
       "rules": {
         "glue/bitovi/angular-template/prefer-optimized-image-directive": "error",
+        "glue/bitovi/angular-template/required-ng-src-attributes": "error",
         "glue/bitovi/angular-template/no-property-assignment": "error"
       },
       "parser": "@angular-eslint/template-parser"

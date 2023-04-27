@@ -1,4 +1,8 @@
 import {
+  RULE_NAME as requiredNgSrcAttributesName,
+  rule as requiredNgSrcAttributes,
+} from './rules/angular-template/required-ng-src-attributes/required-ng-src-attributes';
+import {
   RULE_NAME as preferOptimizedImageDirectiveName,
   rule as preferOptimizedImageDirective,
 } from './rules/angular-template/prefer-optimized-image-directive/prefer-optimized-image-directive';
@@ -129,6 +133,7 @@ module.exports = {
     [preferReadonlyObservablePropertyName]: preferReadonlyObservableProperty,
     [noPropertyAssignmentName]: noPropertyAssignment,
     [preferOptimizedImageDirectiveName]: preferOptimizedImageDirective,
+    [requiredNgSrcAttributesName]: requiredNgSrcAttributes,
   },
   processors: {
     ['json']: processor,

@@ -15,7 +15,10 @@
  */
 
 import { ESLintUtils } from '@typescript-eslint/utils';
-import type { TmplAstBoundAttribute } from '@angular-eslint/bundled-angular-compiler';
+import type {
+  TmplAstBoundAttribute,
+  TmplAstTextAttribute,
+} from '@angular-eslint/bundled-angular-compiler';
 import { getVSCodeMessages } from '../../../utilities/vscode/get-vscode-messages';
 
 export const RULE_NAME = 'angular-template/prefer-optimized-image-directive';
@@ -24,7 +27,7 @@ export type Options = [];
 export type MessageIds = 'preferOptimizedImageDirective';
 
 const standardMessages = {
-  preferOptimizedImageDirective: JSON.stringify(process.env, null, 2), //'Expected ngSrc instead of src',
+  preferOptimizedImageDirective: 'Expected ngSrc instead of src',
 };
 
 const messages = getVSCodeMessages(standardMessages, {
@@ -61,11 +64,17 @@ export const rule = ESLintUtils.RuleCreator(() => __filename)<
   create(context) {
     return {
       'TextAttribute[name="src"],BoundAttribute[name="src"]': function (
-        node: TmplAstBoundAttribute
+        node: TmplAstTextAttribute | TmplAstBoundAttribute
       ) {
-        const {
-          keySpan: { start, end },
-        } = node;
+        const { keySpan } = node;
+
+        const start = keySpan?.start;
+        const end = keySpan?.end;
+
+        if (!start || !end) {
+          return;
+        }
+
         context.report({
           loc: {
             start: {
