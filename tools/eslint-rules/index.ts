@@ -1,4 +1,8 @@
 import {
+  RULE_NAME as noUselessInputBindsName,
+  rule as noUselessInputBinds,
+} from './rules/angular-template/no-useless-input-binds/no-useless-input-binds';
+import {
   RULE_NAME as lifecycleHooksRequireClassThisContextName,
   rule as lifecycleHooksRequireClassThisContext,
 } from './rules/angular/lifecycle-hooks-require-class-this-context/lifecycle-hooks-require-class-this-context';
@@ -140,6 +144,7 @@ module.exports = {
     [requiredNgSrcAttributesName]: requiredNgSrcAttributes,
     [lifecycleHooksRequireClassThisContextName]:
       lifecycleHooksRequireClassThisContext,
+    [noUselessInputBindsName]: noUselessInputBinds,
   },
   processors: {
     ['json']: processor,
