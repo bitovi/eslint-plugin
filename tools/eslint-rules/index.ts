@@ -1,4 +1,8 @@
 import {
+  RULE_NAME as noPropertyAssignmentName,
+  rule as noPropertyAssignment,
+} from './rules/angular-template/no-property-assignment/no-property-assignment';
+import {
   RULE_NAME as preferReadonlyObservablePropertyName,
   rule as preferReadonlyObservableProperty,
 } from './rules/opinionated/prefer-readonly-observable-property/prefer-readonly-observable-property';
@@ -119,6 +123,7 @@ module.exports = {
     [noDynamicEnumAccessName]: noDynamicEnumAccess,
     [preferReadonlyDependencyInjectionName]: preferReadonlyDependencyInjection,
     [preferReadonlyObservablePropertyName]: preferReadonlyObservableProperty,
+    [noPropertyAssignmentName]: noPropertyAssignment,
   },
   processors: {
     ['json']: processor,

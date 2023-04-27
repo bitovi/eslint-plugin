@@ -37,10 +37,13 @@ import { getObs } from './my-observable';
 @Component({
   selector: 'bitovi-root',
   templateUrl: './app.component.html',
+  // template: `
+  //   <div (click)="test = 5"></div>
+  // `,
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnChanges {
-  // value!: string;
+  // test = 0;
   // constructor() {
   //   const moo = {
   //     "one": "two",
@@ -60,13 +63,13 @@ export class AppComponent implements OnChanges {
   // }
 
   // foo() {
-  //   // this.value = value;
-  //   // ((that) => that.value = 'cow')(this);
-  //   // Object.assign(this, { value: 'cow' });
+  //   this.value = 'value';
+  //   ((that) => that.value = 'cow')(this);
+  //   Object.assign(this, { value: 'cow' });
 
-  //   // new Observable<string>().subscribe((value: string) => {
-  //   //   this.value = value;
-  //   // });
+  //   new Observable<string>().subscribe((value: string) => {
+  //     this.value = value;
+  //   });
   // }
   // // @Input() prop!: unknown;
   // // changes: any = {};

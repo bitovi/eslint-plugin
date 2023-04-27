@@ -66,6 +66,14 @@
       "rules": {}
     },
     {
+      "files": ["*.html"],
+      "processor": "@angular-eslint/template/extract-inline-html",
+      "rules": {
+        "glue/bitovi/angular-template/no-property-assignment": "error"
+      },
+      "parser": "@angular-eslint/template-parser"
+    },
+    {
       "files": ["*.json"],
       "processor": "glue/json",
       "rules": {
