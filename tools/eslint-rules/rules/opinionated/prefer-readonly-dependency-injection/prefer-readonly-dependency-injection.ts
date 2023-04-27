@@ -21,7 +21,7 @@ import {
 } from '@typescript-eslint/utils';
 import { isInDecoratedClass } from '../../../utilities/node/is-in-decorated-class';
 
-export const RULE_NAME = 'opininonated/prefer-readonly-dependency-injection';
+export const RULE_NAME = 'opinionated/prefer-readonly-dependency-injection';
 
 export type Options = [];
 export type MessageIds = 'missingReadonly';

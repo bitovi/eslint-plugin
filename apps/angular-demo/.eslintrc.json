@@ -27,7 +27,8 @@
             "exceptions": ["ngOnInit"]
           }
         ],
-        "glue/bitovi/opininonated/prefer-readonly-dependency-injection": "error",
+        "glue/bitovi/angular/lifecycle-hooks-require-class-this-context": "error",
+        "glue/bitovi/opinionated/prefer-readonly-dependency-injection": "error",
         "glue/bitovi/opinionated/no-storing-this-reference": "error",
         "glue/bitovi/angular/host-listener-mouse-events-have-key-events": "error",
         "glue/bitovi/angular/host-listener-click-events-have-key-events": "error",

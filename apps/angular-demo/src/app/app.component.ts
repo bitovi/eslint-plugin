@@ -1,5 +1,4 @@
 /* eslint-disable glue/bitovi/opinionated/no-stateful-methods */
-import { Token } from '@angular/compiler';
 import {
   Component,
   EventEmitter,
@@ -140,6 +139,10 @@ export class AppComponent implements OnChanges {
   @Input() label!: string;
   @Input() value!: string;
   warning?: string;
+
+  // ngOnInit() {
+  //   // :D
+  // }
 
   ngOnChanges(changes: SimpleChanges): void {
     changes;

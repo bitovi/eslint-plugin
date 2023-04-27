@@ -18,7 +18,7 @@ import {
   ESLintUtils,
   TSESTree,
   AST_NODE_TYPES,
-  TSESLint
+  TSESLint,
 } from '@typescript-eslint/utils';
 
 const message = `Using the subscribe callback is discouraged. There are better alternatives to utilize Observables.
@@ -40,7 +40,7 @@ https://angular.io/api/common/AsyncPipe#examples
 \`\`\`
 
 https://rxjs.dev/api/operators/tap
-`
+`;
 
 // NOTE: The rule will be available in ESLint configs as "@nrwl/nx/workspace/no-subscribe-callback"
 export const RULE_NAME = 'angular/no-subscribe-callback';
@@ -55,7 +55,7 @@ export const rule = ESLintUtils.RuleCreator(() => __filename)({
     },
     schema: [],
     messages: {
-      subscribeCallback: message
+      subscribeCallback: message,
     },
   },
   defaultOptions: [],
@@ -66,7 +66,10 @@ export const rule = ESLintUtils.RuleCreator(() => __filename)({
       ) {
         const identifer = node.property;
 
-        if (identifer.type !== AST_NODE_TYPES.Identifier || identifer.name !== 'subscribe') {
+        if (
+          identifer.type !== AST_NODE_TYPES.Identifier ||
+          identifer.name !== 'subscribe'
+        ) {
           return;
         }
 
@@ -79,10 +82,10 @@ export const rule = ESLintUtils.RuleCreator(() => __filename)({
             data: {
               prop: getPropertyName(node.object),
               callback: getCallbackAsString(context, callback),
-            }
+            },
           });
         }
-      }
+      },
     };
   },
 });
@@ -95,8 +98,9 @@ function getPropertyName(node: TSESTree.LeftHandSideExpression) {
   return 'prop$';
 }
 
-function getFirstArgument(node: TSESTree.Node): TSESTree.CallExpressionArgument | undefined
-{
+function getFirstArgument(
+  node: TSESTree.Node
+): TSESTree.CallExpressionArgument | undefined {
   const parent = node.parent;
 
   if (parent?.type === AST_NODE_TYPES.CallExpression) {
@@ -106,12 +110,11 @@ function getFirstArgument(node: TSESTree.Node): TSESTree.CallExpressionArgument 
   return undefined;
 }
 
-function getCallbackAsString<
-T extends string,
-V extends readonly unknown[]
->(context: Readonly<TSESLint.RuleContext<T, V>>, callback: TSESTree.CallExpressionArgument): string {
+function getCallbackAsString<T extends string, V extends readonly unknown[]>(
+  context: Readonly<TSESLint.RuleContext<T, V>>,
+  callback: TSESTree.CallExpressionArgument
+): string {
   const sourceCode = context.getSourceCode();
-  // const range = callback.range;
 
   return sourceCode.getText(callback);
 }

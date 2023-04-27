@@ -1,4 +1,4 @@
-# Rule `opininonated/prefer-readonly-dependency-injection`
+# Rule `opinionated/prefer-readonly-dependency-injection`
 
 References to dependency injections should not change
 

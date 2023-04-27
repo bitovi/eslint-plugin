@@ -1,4 +1,8 @@
 import {
+  RULE_NAME as lifecycleHooksRequireClassThisContextName,
+  rule as lifecycleHooksRequireClassThisContext,
+} from './rules/angular/lifecycle-hooks-require-class-this-context/lifecycle-hooks-require-class-this-context';
+import {
   RULE_NAME as requiredNgSrcAttributesName,
   rule as requiredNgSrcAttributes,
 } from './rules/angular-template/required-ng-src-attributes/required-ng-src-attributes';
@@ -134,6 +138,8 @@ module.exports = {
     [noPropertyAssignmentName]: noPropertyAssignment,
     [preferOptimizedImageDirectiveName]: preferOptimizedImageDirective,
     [requiredNgSrcAttributesName]: requiredNgSrcAttributes,
+    [lifecycleHooksRequireClassThisContextName]:
+      lifecycleHooksRequireClassThisContext,
   },
   processors: {
     ['json']: processor,
