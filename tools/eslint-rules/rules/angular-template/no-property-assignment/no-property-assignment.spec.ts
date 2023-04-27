@@ -1,5 +1,7 @@
-import { RuleTester } from '@angular-eslint/utils';
-import { convertAnnotatedSourceToFailureCase } from '@angular-eslint/utils';
+import {
+  RuleTester,
+  convertAnnotatedSourceToFailureCase,
+} from '@angular-eslint/utils';
 import { MessageIds, rule, RULE_NAME } from './no-property-assignment';
 
 const ruleTester = new RuleTester({

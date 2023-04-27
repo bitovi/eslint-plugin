@@ -39,6 +39,7 @@ import { getObs } from './my-observable';
   templateUrl: './app.component.html',
   // template: `
   //   <div (click)="test = 5"></div>
+  //   <img src="cat.jpg">
   // `,
   styleUrls: ['./app.component.scss'],
 })

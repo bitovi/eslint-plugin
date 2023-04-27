@@ -1,4 +1,4 @@
-# Rule `prefer-readonly-observable-property`
+# Rule `opinionated/prefer-readonly-observable-property`
 
 Properties that reference an Observable should never be reassigned
 

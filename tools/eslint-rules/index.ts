@@ -1,4 +1,8 @@
 import {
+  RULE_NAME as preferOptimizedImageDirectiveName,
+  rule as preferOptimizedImageDirective,
+} from './rules/angular-template/prefer-optimized-image-directive/prefer-optimized-image-directive';
+import {
   RULE_NAME as noPropertyAssignmentName,
   rule as noPropertyAssignment,
 } from './rules/angular-template/no-property-assignment/no-property-assignment';
@@ -124,6 +128,7 @@ module.exports = {
     [preferReadonlyDependencyInjectionName]: preferReadonlyDependencyInjection,
     [preferReadonlyObservablePropertyName]: preferReadonlyObservableProperty,
     [noPropertyAssignmentName]: noPropertyAssignment,
+    [preferOptimizedImageDirectiveName]: preferOptimizedImageDirective,
   },
   processors: {
     ['json']: processor,

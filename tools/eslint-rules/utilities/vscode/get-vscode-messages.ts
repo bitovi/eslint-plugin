@@ -3,7 +3,8 @@
  * within vscode extension environment
  */
 export function isVsCode(): boolean {
-  return process.env.VSCODE_CLI === '1';
+  console.log(process.env);
+  return !!(process.env.VSCODE_CLI || process.env.VSCODE_PID);
 }
 
 /**
