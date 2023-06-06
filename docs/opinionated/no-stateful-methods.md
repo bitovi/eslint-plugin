@@ -1,6 +1,6 @@
 # Rule `opinionated/no-stateful-methods`
 
-
+Methods should not mutate values
 
 ## Valid Usage
 

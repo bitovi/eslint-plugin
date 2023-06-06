@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 const routes: Routes = [
   {
     path: 'moo-cow/moo-cow/:id/a-b-c',
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     component: {} as any,
   },
 ];

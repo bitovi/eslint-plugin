@@ -32,7 +32,6 @@
         "glue/bitovi/opinionated/no-storing-this-reference": "error",
         "glue/bitovi/angular/host-listener-mouse-events-have-key-events": "error",
         "glue/bitovi/angular/host-listener-click-events-have-key-events": "error",
-        "glue/bitovi/angular/no-rxjs-internal-import": "error",
         "glue/bitovi/angular/no-entry-components": "error",
         "glue/bitovi/angular/seo-friendly-route-path": "error",
         "glue/bitovi/angular/on-changes-use-input-bind": "error",

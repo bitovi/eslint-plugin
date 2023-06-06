@@ -1,157 +1,221 @@
-/* eslint-disable glue/bitovi/opinionated/no-stateful-methods */
-import {
-  Component,
-  EventEmitter,
-  HostListener,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  SimpleChanges,
-  inject,
-} from '@angular/core';
-import { Observable } from 'rxjs';
-import { getObs } from './my-observable';
+// import {
+//   Component,
+//   EventEmitter,
+//   HostListener,
+//   Input,
+//   OnChanges,
+//   OnInit,
+//   Output,
+//   SimpleChanges,
+//   inject,
+// } from '@angular/core';
+// import { Observable } from 'rxjs';
+// import { getObs } from './my-observable';
+// import { HttpClient } from '@angular/common/http';
 
 // enum Moo {
-//   cow = 'cow',
-//   milk = 'milk',
+//   COW = 'cow',
+//   MILK = 'milk',
 // }
 
-// function getVal(): 'cow' {
-//   return 'cow';
+// enum Config {
+//   COW = () => {/* callback for COW */},
+//   MILK = () => {/* callback for MILK */},
 // }
 
-// const test = Moo.cow;// okay
-// const test2 = Moo['cow'];// ugly, but okay
-// const val = 'cow';
-// const test3 = Moo[val];// logically okay, but nope
-// const test4 = Moo[getVal()];// for sure not okay
+// const config = {
+//   [Moo.COW]: () => {/* callback for COW */},
+//   [Moo.MILK]: () => {/* callback for COW */},
+// } as const;
 
-// test
-// test2
-// test3
-// test4
+// function getKey(): 'COW' {
+//   return 'COW';
+// }
 
-@Component({
-  selector: 'bitovi-root',
-  templateUrl: './app.component.html',
-  // template: `
-  //   <div (click)="test = 5"></div>
-  //   <img src="cat.jpg">
-  // `,
-  styleUrls: ['./app.component.scss'],
-})
-export class AppComponent implements OnChanges {
-  // test = 0;
-  // constructor() {
-  //   const moo = {
-  //     "one": "two",
-  //     "second": {
-  //         "apple": "cow"
-  //     }
-  //   };
+// const test = Moo.COW;// okay
+// const test2 = Moo['COW'];// ugly, but okay
+// const key = 'COW';
+// const test3 = Moo[key];// logically okay, but nope
+// const test4 = Moo[getKey()];// for sure not okay
 
-  //   this.value = 'moo';
-  //   // new Observable<string>().subscribe((value: string) => {
-  //   //   this.value = value;
-  //   // });
-  // }
+// function getValue(): Moo {
+//   return Moo.COW;
+// }
 
-  // ngOnInit(): void {
-  //   this.value = 'moo';
-  // }
+// const test5 = getValue();
 
-  // foo() {
-  //   this.value = 'value';
-  //   ((that) => that.value = 'cow')(this);
-  //   Object.assign(this, { value: 'cow' });
+// // test
+// // test2
+// // test3
+// // test4
 
-  //   new Observable<string>().subscribe((value: string) => {
-  //     this.value = value;
-  //   });
-  // }
-  // // @Input() prop!: unknown;
-  // // changes: any = {};
-  // // title = 'angular-demo';
+// @Component({
+//   selector: 'bitovi-root',
+//   templateUrl: './app.component.html',
+//   // template: `
+//   //   <div (click)="test = 5"></div>
+//   //   <img src="cat.jpg">
+//   // `,
+//   styleUrls: ['./app.component.scss'],
+// })
+// export class AppComponent implements OnInit {
+//   moo = "in the member";
 
-  // // @Output() x = new EventEmitter();
-  // // @Output() y!: EventEmitter<{ name: string }>;
-  // // @Output() s = new EventEmitter();
+//   constructor() {
+//     this.moo = "in the constructor";
+//   }
 
-  // // @HostListener('click')
-  // // moocow() {
-  // //   console.log('woo');
-  // // }
+//   ngOnInit(): void {
+//     this.moo = "in the ngOnInit";
+//   }
 
-  // // @HostListener('keypress')
-  // // moo() {
-  // //   console.log('woo');
-  // // }
+//   cow(): void {
+//     const that = this;
 
-  // // @HostListener('mouseover') cow() {
-  // //   console.log('woo');
-  // // }
+//     that.moo = "some value";
+//     // this.moo = "some value";
+//   }
 
-  // // @HostListener('focus') cow2() {
-  // //   console.log('woo');
-  // // }
+//   //   @Input() label!: string;
+// //   @Input() value!: string;
+// //   warning?: string;
 
-  // // ngOnChanges(changes: SimpleChanges): void {
-  // //   const prop = changes['prop'];
+// //   // ngOnInit() {
+// //   //   // :D
+// //   // }
 
-  // //   if (changes['prop']) {
-  // //     console.log('hello world');
-  // //   }
+// //   ngOnChanges(changes: SimpleChanges): void {
+// //     changes;
+// //     if (changes['label'] || changes['value']) {
+// //       if (this.label.length + this.value.length > 50) {
+// //         this.warning = 'content must be less than 50 characters';
+// //       } else {
+// //         this.warning = '';
+// //       }
+// //     }
+// //   }
+// // }
+// }
 
-  // //   while (changes['prop']) {
-  // //     console.log('while loop');
-  // //     break;
-  // //   }
+// //   // moo!: Observable<string>;// Look into this D:
 
-  // //   for (let i = 0; i < (changes['prop'] ? 1 : 1); i++) {
-  // //     console.log('for loop');
-  // //   }
+// //   // test = 0;
+// //   // constructor() {
+// //   //   const moo = {
+// //   //     "one": "two",
+// //   //     "second": {
+// //   //         "apple": "cow"
+// //   //     }
+// //   //   };
 
-  // //   this.changes['moo'];
+// //   //   this.value = 'moo';
+// //   //   // new Observable<string>().subscribe((value: string) => {
+// //   //   //   this.value = value;
+// //   //   // });
+// //   // }
 
-  // //   const test = {
-  // //     test: changes['prop'],
-  // //   };
+// //   // ngOnInit(): void {
+// //   //   this.value = 'moo';
+// //   // }
 
-  // //   function namedFn(changes: { prop: string }): any {
-  // //     const test = changes['prop'];
-  // //   }
+// //   // ngOnInit(): void {
+// //   //   // TODO: setup some properties and stuff
+// //   // }
 
-  // //   const arrayFn = (...changes: any): any => {
-  // //     const test = changes['moo'];
-  // //   };
-  // // }
+// //   // ngOnInit(): void {
+// //   //   // TODO: setup some properties and stuff
+// //   // }
 
-  // // constructor() {
-  // //   const moo$ = {} as Observable;
+// //   foo() {
+// //     // this.value = 'value';
+// //     ((that) => that.value = 'cow')(this);
+// //     Object.assign(this, { value: 'cow' });
 
-  // //   moo$.subscribe();
+// //     new Observable<string>().subscribe((value: string) => {
+// //       // this.value = value;
+// //     });
+// //   }
+// //   // // @Input() prop!: unknown;
+// //   // // changes: any = {};
+// //   // // title = 'angular-demo';
 
-  // //   moo$.subscribe((value) => { console.log(value) });
-  // // }
+// //   // // @Output() x = new EventEmitter();
+// //   // // @Output() y!: EventEmitter<{ name: string }>;
+// //   // // @Output() s = new EventEmitter();
 
-  @Input() label!: string;
-  @Input() value!: string;
-  warning?: string;
+// //   // // @HostListener('click')
+// //   // // moocow() {
+// //   // //   console.log('woo');
+// //   // // }
 
-  // ngOnInit() {
-  //   // :D
-  // }
+// //   // // @HostListener('keypress')
+// //   // // moo() {
+// //   // //   console.log('woo');
+// //   // // }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    changes;
-    if (changes['label'] || changes['value']) {
-      if (this.label.length + this.value.length > 50) {
-        this.warning = 'content must be less than 50 characters';
-      } else {
-        this.warning = '';
-      }
-    }
-  }
-}
+// //   // // @HostListener('mouseover') cow() {
+// //   // //   console.log('woo');
+// //   // // }
+
+// //   // // @HostListener('focus') cow2() {
+// //   // //   console.log('woo');
+// //   // // }
+
+// //   // // ngOnChanges(changes: SimpleChanges): void {
+// //   // //   const prop = changes['prop'];
+
+// //   // //   if (changes['prop']) {
+// //   // //     console.log('hello world');
+// //   // //   }
+
+// //   // //   while (changes['prop']) {
+// //   // //     console.log('while loop');
+// //   // //     break;
+// //   // //   }
+
+// //   // //   for (let i = 0; i < (changes['prop'] ? 1 : 1); i++) {
+// //   // //     console.log('for loop');
+// //   // //   }
+
+// //   // //   this.changes['moo'];
+
+// //   // //   const test = {
+// //   // //     test: changes['prop'],
+// //   // //   };
+
+// //   // //   function namedFn(changes: { prop: string }): any {
+// //   // //     const test = changes['prop'];
+// //   // //   }
+
+// //   // //   const arrayFn = (...changes: any): any => {
+// //   // //     const test = changes['moo'];
+// //   // //   };
+// //   // // }
+
+// //   constructor(private http: HttpClient) {
+// //     const moo$ = {} as Observable<string>;
+
+// //     moo$.subscribe();
+
+// //     // moo$.subscribe((value: string) => { console.log(value); this.warning = "test" });
+// //   }
+
+// //   @Input() label!: string;
+// //   @Input() value!: string;
+// //   warning?: string;
+
+// //   // ngOnInit() {
+// //   //   // :D
+// //   // }
+
+// //   ngOnChanges(changes: SimpleChanges): void {
+// //     changes;
+// //     if (changes['label'] || changes['value']) {
+// //       if (this.label.length + this.value.length > 50) {
+// //         this.warning = 'content must be less than 50 characters';
+// //       } else {
+// //         this.warning = '';
+// //       }
+// //     }
+// //   }
+// // }

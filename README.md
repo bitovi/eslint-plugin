@@ -52,11 +52,11 @@ The `convertAnnotatedSourceToFailureCase()` function from `@angular-eslint/utils
 Calls to `convertAnnotatedSourceToFailureCase()` are made within the `invalid` array passed to `RuleTester.run`, in place of the usual failure objects.
 
 ```ts
-const ruleTester = new TSESLint.RuleTester({
-  parser: require.resolve('@typescript-eslint/parser'),
+const ruleTester = new ESLintUtils.RuleTester({
+  parser: '@typescript-eslint/parser',
 });
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run<MessageIds, unknown[]>(RULE_NAME, rule, {
     valid: [],
     invalid: [
         convertAnnotatedSourceToFailureCase({
@@ -89,7 +89,7 @@ Note that if your rule provides suggestions or fixes, you _must_ also provide st
 
 If the invalid test case you are authoring is expected to provide a fix, the expected results of that fix should be passed to the `annotatedOutput` property. The test case will fail if this is excluded.
 
-You can find examples of this in the tests for `angular/no-rxjs-internal-import`.
+You can find examples of this in the tests for `angular/event-emitter-has-output`.
 
 **Testing Suggestion Results**
 

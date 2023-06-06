@@ -33,63 +33,55 @@ import {
 import {
   RULE_NAME as requireOnPushChangeDetectionAsDefaultName,
   rule as requireOnPushChangeDetectionAsDefault,
-} from './rules/opinionated/require-on-push-change-detection-as-default';
+} from './rules/opinionated/require-on-push-change-detection-as-default/require-on-push-change-detection-as-default';
 import {
   RULE_NAME as noThisAsArgumentName,
   rule as noThisAsArgument,
-} from './rules/opinionated/no-storing-this-reference';
+} from './rules/opinionated/no-storing-this-reference/no-storing-this-reference';
 import {
   RULE_NAME as noStatefulMethodsName,
   rule as noStatefulMethods,
-} from './rules/opinionated/no-stateful-methods';
-import {
-  RULE_NAME as noBindingsInRxjsStreamName,
-  rule as noBindingsInRxjsStream,
-} from './rules/angular/no-bindings-in-rxjs-stream';
+} from './rules/opinionated/no-stateful-methods/no-stateful-methods';
 import {
   RULE_NAME as noSubscribeCallbackName,
   rule as noSubscribeCallback,
-} from './rules/angular/no-subscribe-callback';
+} from './rules/angular/no-subscribe-callback/no-subscribe-callback';
 import {
   RULE_NAME as noReadInputInConstructorName,
   rule as noReadInputInConstructor,
-} from './rules/angular/no-read-input-in-constructor';
+} from './rules/angular/no-read-input-in-constructor/no-read-input-in-constructor';
 import {
   RULE_NAME as noInputReadonlyName,
   rule as noInputReadonly,
-} from './rules/angular/no-input-readonly';
+} from './rules/angular/no-input-readonly/no-input-readonly';
 import {
   RULE_NAME as hostListenerOnMethodName,
   rule as hostListenerOnMethod,
-} from './rules/angular/host-listener-on-method';
+} from './rules/angular/host-listener-on-method/host-listener-on-method';
 import {
   RULE_NAME as onChangesUseInputBindName,
   rule as onChangesUseInputBind,
-} from './rules/angular/on-changes-use-input-bind';
+} from './rules/angular/on-changes-use-input-bind/on-changes-use-input-bind';
 import {
   RULE_NAME as seoFriendlyRoutePathName,
   rule as seoFriendlyRoutePath,
-} from './rules/angular/seo-friendly-route-path';
+} from './rules/angular/seo-friendly-route-path/seo-friendly-route-path';
 import {
   RULE_NAME as noEntryComponentsName,
   rule as noEntryComponents,
-} from './rules/angular/no-entry-components';
+} from './rules/angular/no-entry-components/no-entry-components';
 import {
   RULE_NAME as eventEmitterHasOutputName,
   rule as eventEmitterHasOutput,
-} from './rules/angular/event-emitter-has-output';
-import {
-  RULE_NAME as noRxjsInternalImportName,
-  rule as noRxjsInternalImport,
-} from './rules/angular/no-rxjs-internal-import';
+} from './rules/angular/event-emitter-has-output/event-emitter-has-output';
 import {
   RULE_NAME as hostListenerClickEventsHaveKeyEventsName,
   rule as hostListenerClickEventsHaveKeyEvents,
-} from './rules/angular/host-listener-click-events-have-key-events';
+} from './rules/angular/host-listener-click-events-have-key-events/host-listener-click-events-have-key-events';
 import {
   RULE_NAME as hostListenerMouseEventsHaveKeyEventsName,
   rule as hostListenerMouseEventsHaveKeyEvents,
-} from './rules/angular/host-listener-mouse-events-have-key-events';
+} from './rules/angular/host-listener-mouse-events-have-key-events/host-listener-mouse-events-have-key-events';
 import { processor } from './utilities/json-processor';
 
 /**
@@ -123,7 +115,6 @@ module.exports = {
     [hostListenerClickEventsHaveKeyEventsName]:
       hostListenerClickEventsHaveKeyEvents,
     [eventEmitterHasOutputName]: eventEmitterHasOutput,
-    [noRxjsInternalImportName]: noRxjsInternalImport,
     [noEntryComponentsName]: noEntryComponents,
     [seoFriendlyRoutePathName]: seoFriendlyRoutePath,
     [onChangesUseInputBindName]: onChangesUseInputBind,
@@ -131,7 +122,6 @@ module.exports = {
     [noInputReadonlyName]: noInputReadonly,
     [noReadInputInConstructorName]: noReadInputInConstructor,
     [noSubscribeCallbackName]: noSubscribeCallback,
-    [noBindingsInRxjsStreamName]: noBindingsInRxjsStream,
     [noStatefulMethodsName]: noStatefulMethods,
     [noThisAsArgumentName]: noThisAsArgument,
     [requireOnPushChangeDetectionAsDefaultName]:

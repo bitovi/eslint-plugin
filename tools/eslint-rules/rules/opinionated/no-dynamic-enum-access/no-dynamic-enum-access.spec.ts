@@ -1,5 +1,5 @@
 import { ESLintUtils } from '@typescript-eslint/utils';
-import { rule, RULE_NAME } from './no-dynamic-enum-access';
+import { MessageIds, rule, RULE_NAME } from './no-dynamic-enum-access';
 
 const ruleTester = new ESLintUtils.RuleTester({
   parser: '@typescript-eslint/parser',
@@ -9,7 +9,7 @@ const ruleTester = new ESLintUtils.RuleTester({
   },
 });
 
-ruleTester.run(RULE_NAME, rule, {
+ruleTester.run<MessageIds, unknown[]>(RULE_NAME, rule, {
   valid: [
     {
       name: 'Should be able to access enums',
