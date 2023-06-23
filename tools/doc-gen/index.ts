@@ -13,3 +13,9 @@ generateDocs(
   undefined,
   true
 );
+generateDocs(
+  join(__dirname, '../eslint-rules/rules/angular-template'),
+  join(__dirname, '../../docs/angular-template'),
+  undefined,
+  true
+);
