@@ -24,7 +24,6 @@ class MyComponent {
 }
 ```
 
-
 ### Should fail when member is missing
 
 ```ts
@@ -37,7 +36,6 @@ class MyComponent {
 }
 ```
 
-
 ### Should fail even if mistake is within if statement
 
 ```ts
@@ -45,11 +43,8 @@ class MyComponent {
 class MyDirective {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['prop']) {
-                ~~~~~~
-      console.log('changed');
+      ~~~~~~console.log('changed');
     }
   }
 }
 ```
-
-

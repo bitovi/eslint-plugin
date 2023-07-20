@@ -10,14 +10,11 @@ The NgOptimizedImage directive is preferred for performance best practices for l
 <img prop="value">
 ```
 
-
 ### Should pass for any Input bind that is NOT src
 
 ```ts
 <img [prop]="value">
 ```
-
-
 
 ## Invalid Usage
 
@@ -28,12 +25,9 @@ The NgOptimizedImage directive is preferred for performance best practices for l
      ~~~
 ```
 
-
 ### Should report for src Input bind
 
 ```ts
 <img [src]="value">
       ~~~
 ```
-
-

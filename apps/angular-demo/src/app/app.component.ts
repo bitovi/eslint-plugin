@@ -1,48 +1,48 @@
 import {
   Component,
-  EventEmitter,
-  HostListener,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  SimpleChanges,
-  inject,
+  // EventEmitter,
+  // HostListener,
+  // Input,
+  // OnChanges,
+  // OnInit,
+  // Output,
+  // SimpleChanges,
+  // inject,
 } from '@angular/core';
-import { Observable } from 'rxjs';
-import { getObs } from './my-observable';
-import { HttpClient } from '@angular/common/http';
+// import { Observable } from 'rxjs';
+// import { getObs } from './my-observable';
+// import { HttpClient } from '@angular/common/http';
 
-enum Moo {
-  COW = 'cow',
-  MILK = 'milk',
-}
+// enum Moo {
+//   COW = 'cow',
+//   MILK = 'milk',
+// }
 
-enum Config {
-  COW = () => {/* callback for COW */},
-  MILK = () => {/* callback for MILK */},
-}
+// enum Config {
+//   COW = () => {/* callback for COW */},
+//   MILK = () => {/* callback for MILK */},
+// }
 
-const config = {
-  [Moo.COW]: () => {/* callback for COW */},
-  [Moo.MILK]: () => {/* callback for COW */},
-} as const;
+// const config = {
+//   [Moo.COW]: () => {/* callback for COW */},
+//   [Moo.MILK]: () => {/* callback for COW */},
+// } as const;
 
-function getKey(): 'COW' {
-  return 'COW';
-}
+// function getKey(): 'COW' {
+//   return 'COW';
+// }
 
-const test = Moo.COW;// okay
-const test2 = Moo['COW'];// ugly, but okay
-const key = 'COW';
-const test3 = Moo[key];// logically okay, but nope
-const test4 = Moo[getKey()];// for sure not okay
+// const test = Moo.COW;// okay
+// const test2 = Moo['COW'];// ugly, but okay
+// const key = 'COW';
+// const test3 = Moo[key];// logically okay, but nope
+// const test4 = Moo[getKey()];// for sure not okay
 
-function getValue(): Moo {
-  return Moo.COW;
-}
+// function getValue(): Moo {
+//   return Moo.COW;
+// }
 
-const test5 = getValue();
+// const test5 = getValue();
 
 // test
 // test2
@@ -59,42 +59,43 @@ const test5 = getValue();
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  moo = "in the member";
+  // moo = "in the member";
 
-  constructor() {
-    this.moo = "in the constructor";
-  }
+  // constructor() {
+  //   this.moo = "in the constructor";
+  // }
 
   ngOnInit(): void {
-    this.moo = "in the ngOnInit";
+    console.log('empty');
+    //   this.moo = "in the ngOnInit";
   }
 
-  cow(): void {
-    const that = this;
+  // cow(): void {
+  //   const that = this;
 
-    that.moo = "some value";
-    // this.moo = "some value";
-  }
+  //   that.moo = "some value";
+  //   // this.moo = "some value";
+  // }
 
   //   @Input() label!: string;
-//   @Input() value!: string;
-//   warning?: string;
+  //   @Input() value!: string;
+  //   warning?: string;
 
-//   // ngOnInit() {
-//   //   // :D
-//   // }
+  //   // ngOnInit() {
+  //   //   // :D
+  //   // }
 
-//   ngOnChanges(changes: SimpleChanges): void {
-//     changes;
-//     if (changes['label'] || changes['value']) {
-//       if (this.label.length + this.value.length > 50) {
-//         this.warning = 'content must be less than 50 characters';
-//       } else {
-//         this.warning = '';
-//       }
-//     }
-//   }
-// }
+  //   ngOnChanges(changes: SimpleChanges): void {
+  //     changes;
+  //     if (changes['label'] || changes['value']) {
+  //       if (this.label.length + this.value.length > 50) {
+  //         this.warning = 'content must be less than 50 characters';
+  //       } else {
+  //         this.warning = '';
+  //       }
+  //     }
+  //   }
+  // }
 }
 
 //   // moo!: Observable<string>;// Look into this D:

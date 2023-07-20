@@ -14,7 +14,6 @@ class MyClass {
 }
 ```
 
-
 ### Should pass for properties that do NOT reference an Observable
 
 ```ts
@@ -25,7 +24,6 @@ class MyClass {
 }
 ```
 
-
 ### Should pass for readonly properties with name that ends with $
 
 ```ts
@@ -35,8 +33,6 @@ class MyClass {
   moo = 'value';
 }
 ```
-
-
 
 ## Invalid Usage
 
@@ -51,7 +47,6 @@ class MyClass {
 }
 ```
 
-
 ### Should report for non-readonly properties that reference an rxjs classes that extend Observable
 
 ```ts
@@ -63,7 +58,6 @@ class MyClass {
 }
 ```
 
-
 ### Should report for non-readonly properties with name that ends with $
 
 ```ts
@@ -74,5 +68,3 @@ class MyClass {
   ~~~~~~~~~~~~~~~~~~~
 }
 ```
-
-

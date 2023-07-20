@@ -1,11 +1,6 @@
 {
-  "extends": [
-    "../../.eslintrc.json",
-    "plugin:eslint-plugin/recommended"
-  ],
-  "ignorePatterns": [
-    "!**/*"
-  ],
+  "extends": ["../../.eslintrc.json", "plugin:eslint-plugin/recommended"],
+  "ignorePatterns": ["!**/*"],
   "overrides": [],
   "parserOptions": {
     "sourceType": "module"

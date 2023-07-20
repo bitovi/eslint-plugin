@@ -10,7 +10,6 @@ Always default to OnPush plz
 { "moo": "cow" }
 ```
 
-
 ### Should allow for json with changeDetection default is OnPush
 
 ```ts
@@ -27,8 +26,6 @@ Always default to OnPush plz
       }
 ```
 
-
-
 ## Invalid Usage
 
 ### Should report if schematics is missing for project
@@ -43,7 +40,6 @@ Always default to OnPush plz
         }
       }
 ```
-
 
 ### Should report if component schematic settings are missing for project
 
@@ -60,7 +56,6 @@ Always default to OnPush plz
         }
       }
 ```
-
 
 ### Should report if default change detection is missing from component schematic settings
 
@@ -79,7 +74,6 @@ Always default to OnPush plz
       }
 ```
 
-
 ### Should report if default change detection is not OnPush
 
 ```ts
@@ -97,5 +91,3 @@ Always default to OnPush plz
         }
       }
 ```
-
-

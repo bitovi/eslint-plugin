@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       segment:
-        description: "The version segment to increment: major, minor, patch, premajor, preminor, prepatch, or prerelease"
+        description: 'The version segment to increment: major, minor, patch, premajor, preminor, prepatch, or prerelease'
         required: true
       preId:
         description: 'Only used when premajor, preminor, or prepatch is added in segment. The name appended to the version bump to represent a pre-release (default: "")'
@@ -23,15 +23,15 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "16"
+          node-version: '16'
 
-      - name: "Install"
+      - name: 'Install'
         run: npm ci
 
-      - name: "Verify Build"
+      - name: 'Verify Build'
         run: npm run build
 
-      - name: "Test"
+      - name: 'Test'
         run: npm run test
 
       - name: Increment Version
@@ -48,10 +48,10 @@ jobs:
           git add ./tools/eslint-rules/package.json
           git commit -m "Version bump for tools"
           npm version ${{ github.event.inputs.segment }} $PRE_ID_COMMAND_STR -m "Publish v%s"
-      
-      - name: "Publish Build"
+
+      - name: 'Publish Build'
         run: npm run build
-      
+
       - name: Publish to NPM Registry
         uses: JS-DevTools/npm-publish@v1
         with:

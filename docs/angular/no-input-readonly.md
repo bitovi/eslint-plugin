@@ -14,7 +14,6 @@ class MyComponent {
 }
 ```
 
-
 ### should pass when readonly is used in non-component or directive class
 
 ```ts
@@ -23,8 +22,6 @@ class MyComponent {
   @Input() readonly neverGonnaChangeMe = 'hah';
 }
 ```
-
-
 
 ## Invalid Usage
 
@@ -37,5 +34,3 @@ class MyComponent {
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 }
 ```
-
-

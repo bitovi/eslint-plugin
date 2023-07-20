@@ -9,41 +9,44 @@ Lifecycle hooks must be methods and not arrow functions properties since lifecyc
 ```ts
 @Component()
 class MyComponent {
-  ngOnInit(): void {/* ... */}
+  ngOnInit(): void {
+    /* ... */
+  }
 }
 ```
-
 
 ### Should pass for lifecycle hooks that are methods for directives
 
 ```ts
 @Directive()
 class MyDirective {
-  ngAfterViewInit(): void {/* ... */}
+  ngAfterViewInit(): void {
+    /* ... */
+  }
 }
 ```
-
 
 ### Should pass for lifecycle hooks that are methods for services
 
 ```ts
 @Injectable()
 class MyService {
-  ngOnDestroy(): void {/* ... */}
+  ngOnDestroy(): void {
+    /* ... */
+  }
 }
 ```
-
 
 ### Should pass arrow function properties of classes with custom directives
 
 ```ts
 @MyDecorator()
 class MyComponent {
-  ngOnInit = (): void => {/* ... */}
+  ngOnInit = (): void => {
+    /* ... */
+  };
 }
 ```
-
-
 
 ## Invalid Usage
 
@@ -57,7 +60,6 @@ class MyComponent {
 }
 ```
 
-
 ### Should report for lifecycle hooks that are arrow function properties of a directive
 
 ```ts
@@ -68,7 +70,6 @@ class MyDirective {
 }
 ```
 
-
 ### Should report for lifecycle hooks that are arrow function properties of a service
 
 ```ts
@@ -78,5 +79,3 @@ class MyService {
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 }
 ```
-
-

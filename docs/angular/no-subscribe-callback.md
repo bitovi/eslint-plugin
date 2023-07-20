@@ -1,7 +1,5 @@
 # Rule `angular/no-subscribe-callback`
 
-
-
 ## Valid Usage
 
 No test cases
@@ -15,5 +13,3 @@ const moo = {};
 moo.subscribe(() => {/*...*/});
               ~~~~~~~~~~~~~~~
 ```
-
-

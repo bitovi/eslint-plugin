@@ -22,7 +22,6 @@ No test cases
 export class AppModule {}
 ```
 
-
 ### Should remove entryComponents property, trailing comma, and unnecessary whitespace
 
 ```ts
@@ -37,7 +36,6 @@ export class AppModule {}
 export class MyModule {}
 ```
 
-
 ### Should remove entryComponents property even if its the only property
 
 ```ts
@@ -47,7 +45,6 @@ export class MyModule {}
 })
 export class EmptyModule {}
 ```
-
 
 ### Should remove entryComponents property even if its the only property and its trailing comma
 
@@ -59,7 +56,6 @@ export class EmptyModule {}
 export class EmptyModule {}
 ```
 
-
 ### Should remove inline entryComponents property
 
 ```ts
@@ -67,5 +63,3 @@ export class EmptyModule {}
             ~~~~~~~~~~~~~~~
 export class EmptyModule {}
 ```
-
-

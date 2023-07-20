@@ -57,12 +57,12 @@ const ruleTester = new ESLintUtils.RuleTester({
 });
 
 ruleTester.run<MessageIds, unknown[]>(RULE_NAME, rule, {
-    valid: [],
-    invalid: [
-        convertAnnotatedSourceToFailureCase({
-            /* ... */
-        })
-    ]
+  valid: [],
+  invalid: [
+    convertAnnotatedSourceToFailureCase({
+      /* ... */
+    }),
+  ],
 });
 ```
 
@@ -76,11 +76,11 @@ Passing a string to the `annotatedSource` parameter of the function can assert t
 
 ```ts
 convertAnnotatedSourceToFailureCase({
-    annotatedSource: `
+  annotatedSource: `
     let myVariable: any;
         ~~~~~~~~~~~~~~~
-    `
-})
+    `,
+});
 ```
 
 Note that if your rule provides suggestions or fixes, you _must_ also provide strings showing the result of applying these fixes that have the same indentation and extra line, but with the tildes removed.

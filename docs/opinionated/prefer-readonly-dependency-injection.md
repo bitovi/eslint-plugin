@@ -13,7 +13,6 @@ class MyClass {
 }
 ```
 
-
 ### Should pass for dependency injection that uses readonly keyword that provides accessibility keyword
 
 ```ts
@@ -22,7 +21,6 @@ class MyDirective {
   constructor(private readonly http: HttpClient) {}
 }
 ```
-
 
 ### Should pass for dependency injection that uses readonly keyword that uses Inject decorator
 
@@ -33,7 +31,6 @@ class MyService {
 }
 ```
 
-
 ### Should pass for any property that uses readonly keyword
 
 ```ts
@@ -42,8 +39,6 @@ class MyService {
   readonly http = inject(HttpClient);
 }
 ```
-
-
 
 ## Invalid Usage
 
@@ -57,7 +52,6 @@ class MyComponent {
 }
 ```
 
-
 ### Should fail for any property that references dependency injection that does NOT use readonly keyword
 
 ```ts
@@ -67,5 +61,3 @@ class MyPipe {
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 }
 ```
-
-

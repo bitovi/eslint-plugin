@@ -10,10 +10,11 @@
 @Component()
 class MyComponent {
   @Input() myInput!: string;
-  nonInput!; string;
+  nonInput!;
+  string;
 
   constructor() {
-    if(this.nonInput) {
+    if (this.nonInput) {
       console.log('hi!');
     }
     const value = this.nonInput;
@@ -21,7 +22,6 @@ class MyComponent {
   }
 }
 ```
-
 
 ### should allow non-input values to be referenced in constructor of directive
 
@@ -29,10 +29,11 @@ class MyComponent {
 @Directive()
 class MyDirective {
   @Input() myInput!: string;
-  nonInput!; string;
+  nonInput!;
+  string;
 
   constructor() {
-    if(this.nonInput) {
+    if (this.nonInput) {
       console.log('hi!');
     }
     const value = this.nonInput;
@@ -41,22 +42,20 @@ class MyDirective {
 }
 ```
 
-
 ### should allow assigning to @Input() decorated members in constructor
 
 ```ts
-    @Component()
-    class MyComponent {
-      @Input() myInput!: string;
-      nonInput!; string;
+@Component()
+class MyComponent {
+  @Input() myInput!: string;
+  nonInput!;
+  string;
 
-      constructor() {
-       this.myInput = this.nonInput;
-      }
-    }
+  constructor() {
+    this.myInput = this.nonInput;
+  }
+}
 ```
-
-
 
 ## Invalid Usage
 
@@ -77,7 +76,6 @@ class MyComponent {
 }
 ```
 
-
 ### should fail when reading @Input decorated member in constructor
 
 ```ts
@@ -92,5 +90,3 @@ class MyComponent {
   }
 }
 ```
-
-

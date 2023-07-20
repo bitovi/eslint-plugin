@@ -18,7 +18,6 @@ class MyComponent {
 }
 ```
 
-
 ### Should warn when property not decorated by @Output has EventEmitter type annotation
 
 ```ts
@@ -28,5 +27,3 @@ class MyComponent {
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 }
 ```
-
-

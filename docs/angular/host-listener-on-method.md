@@ -10,10 +10,9 @@
 @Component()
 class MyComponent {
   @HostListener('click')
-  handleClick(): void { }
+  handleClick(): void {}
 }
 ```
-
 
 ### should be allowed on members assigned to arrow functions
 
@@ -24,17 +23,14 @@ class MyComponent {
 }
 ```
 
-
 ### should be allowed on members assigned to function expressions
 
 ```ts
 @Component()
 class MyComponent {
-  @HostListener('click') clickHandler = function() {};
+  @HostListener('click') clickHandler = function () {};
 }
 ```
-
-
 
 ## Invalid Usage
 
@@ -47,7 +43,6 @@ class MyComponent {
 }
 ```
 
-
 ### Should warn when decorator is used on non-function member
 
 ```ts
@@ -58,5 +53,3 @@ class MyComponent {
   myProperty = true;
 }
 ```
-
-

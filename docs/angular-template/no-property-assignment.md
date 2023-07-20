@@ -10,8 +10,6 @@ Property assignment in templates is discouraged for enforcing immutability and c
 <div (click)="moo()"></div>
 ```
 
-
-
 ## Invalid Usage
 
 ### Should report if property assignment
@@ -21,12 +19,9 @@ Property assignment in templates is discouraged for enforcing immutability and c
               ~~~~~~~~~
 ```
 
-
 ### Should report if nested property assignment
 
 ```ts
 <div (click)="moo.milk = cow"></div>
               ~~~~~~~~~~~~~~
 ```
-
-

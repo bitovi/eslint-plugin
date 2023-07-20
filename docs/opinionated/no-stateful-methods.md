@@ -12,7 +12,6 @@ class Moo {
 }
 ```
 
-
 ### Should allow setting members in constructor
 
 ```ts
@@ -22,7 +21,6 @@ class Moo {
   }
 }
 ```
-
 
 ### Should allow setting variables
 
@@ -34,7 +32,6 @@ class Moo {
 }
 ```
 
-
 ### Should allow setting variables to properties of class instance
 
 ```ts
@@ -45,7 +42,6 @@ class Moo {
   }
 }
 ```
-
 
 ### Should allow setting properties of new this context
 
@@ -59,7 +55,6 @@ class Moo {
   }
 }
 ```
-
 
 ### Should allow whitelisted method names
 
@@ -77,8 +72,6 @@ class Cow {
 }
 ```
 
-
-
 ## Invalid Usage
 
 ### Should report if setting property within class method
@@ -91,7 +84,6 @@ class Moo {
   }
 }
 ```
-
 
 ### Should report if setting property within arrow function
 
@@ -106,7 +98,6 @@ class Moo {
 }
 ```
 
-
 ### Should report if setting nested property
 
 ```ts
@@ -118,7 +109,6 @@ class Moo {
   }
 }
 ```
-
 
 ### Should report if setting property in subscribe callback
 
@@ -133,5 +123,3 @@ class Moo {
   }
 }
 ```
-
-
