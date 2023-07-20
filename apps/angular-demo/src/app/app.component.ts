@@ -4,7 +4,7 @@ import {
   // HostListener,
   // Input,
   // OnChanges,
-  // OnInit,
+  OnInit,
   // Output,
   // SimpleChanges,
   // inject,
